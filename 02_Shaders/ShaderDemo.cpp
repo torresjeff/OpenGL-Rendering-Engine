@@ -33,7 +33,7 @@ void ShaderDemo::Run()
 
 	glBindVertexArray(0);
 
-	Shader shader("..\\02_Shaders\\shaders\\vertexshader.vert", "..\\02_Shaders\\shaders\\fragmentshader.frag");
+	Shader shader("shaders\\vertexshader.vert", "shaders\\fragmentshader.frag");
 
 	//Note that finding the uniform location does not require you to use the shader program first, but updating a uniform does require you to first use the program (by calling glUseProgram),
 	// because it sets the uniform on the currently active shader program.
