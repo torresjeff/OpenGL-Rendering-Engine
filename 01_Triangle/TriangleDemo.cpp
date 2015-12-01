@@ -8,7 +8,7 @@ void TriangleDemo::Run()
 {
 	std::vector<float> color{ 1.0f, 0.3f, 0.5f, 1.0f }; //Background color
 
-	Shader shader("shaders\\vertexshader.vert", "shaders\\fragmentshader.frag");
+	Shader shader("shaders/vertexshader.vert", "shaders/fragmentshader.frag");
 
 	//Vertices of two triangle (rectangle)
 	std::vector<GLfloat> vertices

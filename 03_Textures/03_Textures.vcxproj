@@ -151,11 +151,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <None Include="TextureDemo_Comments.cpp" />
     <ClCompile Include="TextureDemo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="InputHandler.h" />
     <ClInclude Include="TextureDemo.h" />
   </ItemGroup>
   <ItemGroup>

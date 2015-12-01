@@ -15,34 +15,31 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shaders\shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="application\Application.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="exceptions\GameException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="application\InputHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <Image Include="res\awesomeface.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\container.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\wall.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="shaders\shader.cpp">
+    <None Include="shaders\fragmentshader.frag" />
+    <None Include="shaders\vertexshader.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="application\Application.cpp">
+    <ClCompile Include="TransformationDemo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="exceptions\GameException.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="application\InputHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TransformationDemo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

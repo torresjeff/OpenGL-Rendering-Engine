@@ -1,13 +1,13 @@
 #include <Common/Common.h>
-#include "TextureDemo.h"
+#include "TransformationDemo.h"
 #include <memory>
 #include <fstream>
-#include "InputHandler.h"
+#include "TransformationDemo.h"
 
 int main()
 {
-	std::unique_ptr<TextureDemo> textureDemo(new TextureDemo("Textures", 800, 600));
-
+	std::unique_ptr<TransformationDemo> textureDemo(new TransformationDemo("Transformations", 800, 600));
+	
 	try
 	{
 		textureDemo->Run();

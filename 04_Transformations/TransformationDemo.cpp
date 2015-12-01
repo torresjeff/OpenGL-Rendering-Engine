@@ -1,16 +1,15 @@
-#include "TextureDemo.h"
+#include "TransformationDemo.h"
 #include <SOIL/SOIL.h>
-#include "InputHandler.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
-TextureDemo::TextureDemo(std::string name, int width, int height)
+TransformationDemo::TransformationDemo(std::string name, int width, int height)
 	: Application(name, width, height)
 {}
 
-GLfloat interpolation = .5f;
-
-void TextureDemo::Run()
+void TransformationDemo::Run()
 {
-	glfwSetKeyCallback(window, TextureDemoCallback);
 	GLuint VAO, VBO, EBO;
 	int imageWidth, imageHeight, imageWidth2, imageHeight2;
 
@@ -19,10 +18,10 @@ void TextureDemo::Run()
 	std::vector<GLfloat> vertices =
 	{
 		// Positions          // Colors           // Texture Coords. When we specify texture coords. out of the [0, 1] range, OpenGL repeats the texture by default.
-		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   2.0f, 2.0f,   // Top Right = 0
-		0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   2.0f, 0.0f,   // Bottom Right = 1
+		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // Top Right = 0
+		0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // Bottom Right = 1
 		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // Bottom Left = 2
-		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 2.0f    // Top Left = 3
+		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // Top Left = 3
 	};
 
 	//Indices of the rectangle
@@ -48,7 +47,7 @@ void TextureDemo::Run()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(2);
 
-	//glBindVertexArray(0);
+	glBindVertexArray(0);
 
 	Shader shader("shaders/vertexshader.vert", "shaders/fragmentshader.frag");
 
@@ -62,9 +61,9 @@ void TextureDemo::Run()
 	glBindTexture(GL_TEXTURE_2D, texture1); //Bind it, so subsequent texture commands will configure the currently bound texture.
 	glUniform1i(glGetUniformLocation(shader.Program(), "ourTexture"), 0); //Set the location of the uniform "ourTexture" to location 0, so it corresponds with GL_TEXTURE0 (active texture-unit).
 
-	// Set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);	// Set texture wrapping to GL_REPEAT (usually basic wrapping method)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+	// Set the texture wrapping parameters (when specifying texture coordinates out of the [0,1] range).
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT (usually default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 	//Set parameters when downscaling/minifying (MIN_FILTER) and upscaling/magnifying (MAG_FILTER)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); //GL_LINEAR_MIPMAP_LINEAR: linearly interpolates between the two closest mipmaps and samples the texture via linear interpolation.
@@ -73,29 +72,34 @@ void TextureDemo::Run()
 
 	//Load the container image and store it as a raw byte array
 	unsigned char* image = SOIL_load_image("res/container.jpg", &imageWidth, &imageHeight, 0, SOIL_LOAD_RGB);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image); // Populate the texture with data and specify the format to store it and the format it is given in.
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image); 
 
-	glGenerateMipmap(GL_TEXTURE_2D); // Automatically generates required mipmaps for the texture
-	SOIL_free_image_data(image); // Free image memory
-	glBindTexture(GL_TEXTURE_2D, 0); // Unbind texture when done, so we won't accidentily mess up our texture.
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, texture2);
-	glUniform1i(glGetUniformLocation(shader.Program(), "ourTexture2"), 1); //Set the location of the uniform "ourTexture2" to location 1, so it corresponds with GL_TEXTURE1 (active texture-unit).
+	glUniform1i(glGetUniformLocation(shader.Program(), "ourTexture2"), 1);
 	
-	//Load the awesomeface image and store it as a raw byte array
+	
 	unsigned char* image2 = SOIL_load_image("res/awesomeface.png", &imageWidth2, &imageHeight2, 0, SOIL_LOAD_RGB);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth2, imageHeight2, 0, GL_RGB, GL_UNSIGNED_BYTE, image2);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(image2);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	glUniform1f(glGetUniformLocation(shader.Program(), "interpolation"), 1.0f);
-	
 
 	while (!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
+		// Scaling operations -> rotation operations -> translation operations
+		glm::mat4 transform;
+		//Even though th eoperations here don't appear to be in the order describes above, the transformation is still scale -> rotate -> translate.
+		transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
+		transform = glm::rotate(transform, glm::radians((GLfloat)glfwGetTime() * 40), glm::vec3(0.0f, 0.0f, 1.0f)); //Third parameter (axis): we want to rotate around the Z axis
+		transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 0.5f));
+
 		glClearBufferfv(GL_COLOR, 0, &color[0]);
 		glUseProgram(shader.Program());
 		
@@ -107,7 +111,8 @@ void TextureDemo::Run()
 		glBindTexture(GL_TEXTURE_2D, texture2); //Automatically assigns the texture to the fragment shader's sampler (no need to get uniform location, etc.)
 		glUniform1i(glGetUniformLocation(shader.Program(), "ourTexture2"), 1); //Set the location of the uniform "ourTexture2" to location 1, so it corresponds with GL_TEXTURE1 (active texture-unit).
 
-		glUniform1f(glGetUniformLocation(shader.Program(), "interpolation"), interpolation);
+		GLuint transformLocation = glGetUniformLocation(shader.Program(), "transform");
+		glUniformMatrix4fv(transformLocation, 1, GL_FALSE, glm::value_ptr(transform));
 
 		glBindVertexArray(VAO);
 
