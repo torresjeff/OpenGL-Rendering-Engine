@@ -95,7 +95,7 @@ void TransformationDemo::Run()
 		glfwPollEvents();
 		// Scaling operations -> rotation operations -> translation operations
 		glm::mat4 transform;
-		//Even though th eoperations here don't appear to be in the order describes above, the transformation is still scale -> rotate -> translate.
+		//Even though the operations here don't appear to be in the order describes above, the transformation is still scale -> rotate -> translate.
 		transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
 		transform = glm::rotate(transform, glm::radians((GLfloat)glfwGetTime() * 40), glm::vec3(0.0f, 0.0f, 1.0f)); //Third parameter (axis): we want to rotate around the Z axis
 		transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 0.5f));
@@ -115,6 +115,16 @@ void TransformationDemo::Run()
 		glUniformMatrix4fv(transformLocation, 1, GL_FALSE, glm::value_ptr(transform));
 
 		glBindVertexArray(VAO);
+
+		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
+
+		glm::mat4 transform2;
+		//Even though the operations here don't appear to be in the order describes above, the transformation is still scale -> rotate -> translate.
+		transform2 = glm::translate(transform2, glm::vec3(-0.5f, 0.5f, 0.0f));
+		GLfloat scale = glm::sin(glm::radians((GLfloat)glfwGetTime() * 20));
+		transform2 = glm::scale(transform2, glm::vec3(scale, scale, scale));
+		
+		glUniformMatrix4fv(transformLocation, 1, GL_FALSE, glm::value_ptr(transform2));
 
 		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
 
