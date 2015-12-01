@@ -8,7 +8,7 @@ Application::Application(std::string name, int WIDTH, int HEIGHT)
 	this->width = WIDTH;
 	this->height = HEIGHT;
 }
-
+dasdasd
 Application::~Application()
 {
 	glfwTerminate();
