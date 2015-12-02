@@ -1,4 +1,5 @@
 #include "Texture2D.h"
+#include <iostream>
 
 Texture2D::Texture2D()
 {
@@ -7,16 +8,17 @@ Texture2D::Texture2D()
 
 Texture2D::Texture2D(GLuint shaderProgram)
 {
-	mProgram = shaderProgram;
 	Initialize();
+	mProgram = shaderProgram;
 }
 
 Texture2D::Texture2D(GLuint shaderProgram, std::string path)
 {
-	mProgram = shaderProgram;
 	Initialize();
 	LoadTexture(path);
+	mProgram = shaderProgram;
 }
+
 
 void Texture2D::Initialize()
 {
@@ -44,6 +46,7 @@ void Texture2D::BindTexture(GLenum textureUnit)
 {
 	glActiveTexture(textureUnit);
 	glBindTexture(GL_TEXTURE_2D, mTexture);
+	mLocation = textureUnit - GL_TEXTURE0;
 }
 
 void Texture2D::UnbindTexture()
@@ -60,9 +63,9 @@ void Texture2D::FreeImageData()
 	}
 }
 
-void Texture2D::GenerateTexture(GLint internalFormat, GLenum format, GLenum type)
+void Texture2D::GenerateTexture(GLint internalFormat, GLenum imageFormat, GLenum type)
 {
-	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, mImageWidth, mImageHeight, 0, format, type, mData);
+	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, mImageWidth, mImageHeight, 0, imageFormat, type, mData);
 }
 
 void Texture2D::GenerateMipmaps()
@@ -95,10 +98,9 @@ void Texture2D::SetProgram(GLuint program)
 	mProgram = program;
 }
 
-void Texture2D::SetTextureUnitUniform(std::string name, int value)
+void Texture2D::SetSampler2D(std::string name)
 {
-	mLocation = value;
-	glUniform1i(glGetUniformLocation(mProgram, name.c_str()), value);
+	glUniform1i(glGetUniformLocation(mProgram, name.c_str()), mLocation);
 }
 
 

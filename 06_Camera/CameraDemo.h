@@ -20,4 +20,6 @@ protected:
 	Shader shader;
 	std::vector<GLfloat> mVertices;
 	Texture2D mTextureContainer, mTextureAwesomeFace;
+	std::vector<glm::vec3> mCubePositions;
+	
 };

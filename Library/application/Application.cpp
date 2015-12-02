@@ -26,7 +26,7 @@ void Application::Draw(float DeltaSeconds)
 {
 	for (auto component : mComponents)
 	{
-		DrawableGameComponent* drawableComponent = (DrawableGameComponent*)component;
+		DrawableGameComponent* drawableComponent = dynamic_cast<DrawableGameComponent*>(component);
 		if (drawableComponent != nullptr && drawableComponent->IsVisible())
 		{
 			drawableComponent->Draw(DeltaSeconds);

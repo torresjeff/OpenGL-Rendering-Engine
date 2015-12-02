@@ -16,7 +16,7 @@ public:
 	void BindTexture(GLenum textureUnit);
 	void UnbindTexture();
 	void FreeImageData();
-	void GenerateTexture(GLint internalFormat, GLenum format, GLenum type);
+	void GenerateTexture(GLint internalFormat, GLenum imageFormat, GLenum type);
 	void GenerateMipmaps();
 
 	//Getters/Setters
@@ -24,12 +24,12 @@ public:
 	int GetWidth() const;
 	int GetHeight() const;
 	void SetProgram(GLuint program);
-	void SetTextureUnitUniform(std::string name, int value);
+	void SetSampler2D(std::string name);
 	void SetTextureParameter(GLenum pname, GLint param);
 protected:
 	virtual void Initialize();
 protected:
-	int mImageWidth, mImageHeight, mLocation;
+	GLint mImageWidth, mImageHeight, mLocation;
 	unsigned char* mData;
 	GLuint mTexture;
 	GLuint mProgram;
