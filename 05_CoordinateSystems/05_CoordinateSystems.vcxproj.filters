@@ -33,12 +33,18 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CoordinateSystemsDemo.cpp">
+    <ClCompile Include="CoordinateSystemsApplication.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CoordinateSystemsComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CoordinateSystemsDemo.h">
+    <ClInclude Include="CoordinateSystemsApplication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CoordinateSystemsComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

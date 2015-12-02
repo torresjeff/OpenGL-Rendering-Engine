@@ -28,11 +28,12 @@
   <ItemGroup>
     <None Include="shaders\fragmentshader.frag" />
     <None Include="shaders\vertexshader.vert" />
-    <None Include="fragmentshader.frag" />
-    <None Include="vertexshader.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CameraDemo.cpp">
@@ -40,6 +41,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraApplication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="CameraDemo.h">
       <Filter>Header Files</Filter>
     </ClInclude>

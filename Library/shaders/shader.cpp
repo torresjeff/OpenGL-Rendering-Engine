@@ -11,15 +11,16 @@ using std::endl;
 		{ \
 			glGetShaderInfoLog(vertexShader, 512, nullptr, infoLog); \
 			cout << "Error compiling shader: " << infoLog << endl; \
-		} \
+		}
+
+Shader::Shader()
+{}
 
 Shader::Shader(std::string vertexShaderPath, std::string fragmentShaderPath)
 {
 	GLint success;
 	GLchar infoLog[512];
 	GLuint vertexShader, fragmentShader;
-
-	
 
 	std::vector<char> shaderSource;
 	ReadShaderFromFile(vertexShaderPath, shaderSource);
@@ -45,17 +46,17 @@ Shader::Shader(std::string vertexShaderPath, std::string fragmentShaderPath)
 	glCompileShader(fragmentShader);
 	CHECK_COMPILE_STATUS(fragmentShader, success, infoLog);
 
-	program = glCreateProgram(); //Creates a program and returns a handle (ID) to it. We store the program in a member variable called program.
+	mProgram = glCreateProgram(); //Creates a program and returns a handle (ID) to it. We store the program in a member variable called program.
 
 	//We attach the shaders to our created program and link them
-	glAttachShader(program, vertexShader);
-	glAttachShader(program, fragmentShader);
-	glLinkProgram(program);
+	glAttachShader(mProgram, vertexShader);
+	glAttachShader(mProgram, fragmentShader);
+	glLinkProgram(mProgram);
 
-	glGetProgramiv(program, GL_LINK_STATUS, &success);
+	glGetProgramiv(mProgram, GL_LINK_STATUS, &success);
 	if (!success)
 	{
-		glGetProgramInfoLog(program, 512, NULL, infoLog);
+		glGetProgramInfoLog(mProgram, 512, NULL, infoLog);
 		cout << "Error linking program: " << infoLog << endl;
 		return;
 	}
@@ -86,4 +87,9 @@ void Shader::ReadShaderFromFile(std::string shaderPath, std::vector<char>& shade
 	shaderSource.push_back('\0');
 
 	file.close();
+}
+
+void Shader::UseProgram()
+{
+	glUseProgram(mProgram);
 }

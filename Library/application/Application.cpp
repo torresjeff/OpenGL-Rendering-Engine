@@ -1,20 +1,45 @@
 #include "Application.h"
 
-Application::Application(std::string name, int WIDTH, int HEIGHT)
+Application::Application(std::string name, int width, int height)
 {
-	InitializeGlfw(name, WIDTH, HEIGHT);
-	InitializeGlew(WIDTH, HEIGHT);
-
-	this->width = WIDTH;
-	this->height = HEIGHT;
+	this->mWidth = width;
+	this->mHeight = height;
 }
-dasdasd
+
 Application::~Application()
 {
 	glfwTerminate();
 }
 
-void Application::InitializeGlfw(std::string name, int WIDTH, int HEIGHT)
+void Application::Update(float DeltaSeconds)
+{
+	for (auto component : mComponents)
+	{
+		if (component->Enabled())
+		{
+			component->Update(DeltaSeconds);
+		}
+	}
+}
+
+void Application::Draw(float DeltaSeconds)
+{
+	for (auto component : mComponents)
+	{
+		DrawableGameComponent* drawableComponent = (DrawableGameComponent*)component;
+		if (drawableComponent != nullptr && drawableComponent->IsVisible())
+		{
+			drawableComponent->Draw(DeltaSeconds);
+		}
+	}
+}
+
+void Application::AddComponent(GameComponent * component)
+{
+	mComponents.push_back(component);
+}
+
+void Application::InitializeGlfw()
 {
 	if (glfwInit() == GL_FALSE)
 	{
@@ -22,7 +47,7 @@ void Application::InitializeGlfw(std::string name, int WIDTH, int HEIGHT)
 		throw GameException("glfwInit() failed");
 	}
 
-	window = glfwCreateWindow(WIDTH, HEIGHT, name.c_str(), nullptr, nullptr);
+	window = glfwCreateWindow(mWidth, mHeight, mName.c_str(), nullptr, nullptr);
 
 	if (!window)
 	{
@@ -35,7 +60,7 @@ void Application::InitializeGlfw(std::string name, int WIDTH, int HEIGHT)
 	glfwMakeContextCurrent(window);
 }
 
-void Application::InitializeGlew(int WIDTH, int HEIGHT)
+void Application::InitializeGlew()
 {
 	glewExperimental = GL_TRUE;
 
@@ -46,21 +71,40 @@ void Application::InitializeGlew(int WIDTH, int HEIGHT)
 		return;
 	}
 
-	glViewport(0, 0, WIDTH, HEIGHT);
+	glViewport(0, 0, mWidth, mHeight);
+}
+
+void Application::Initialize()
+{
+	for (GameComponent* component : mComponents)
+	{
+		component->Initialize();
+	}
 }
 
 void Application::Run()
 {
-	std::vector<float> color{ 0.2f, 0.3f, 0.3f, 1.0f }; //Background color
+	InitializeGlfw();
+	InitializeGlew();
+	Initialize();
 
+	float CurrentTime = 0.0f;
+	float LastTime = (float)glfwGetTime();
+	float DeltaSeconds = 0.0f;
+
+	//glEnable(GL_DEPTH_TEST);
+	
 	while (!glfwWindowShouldClose(window))
 	{
+		CurrentTime = (float)glfwGetTime();
+		DeltaSeconds = CurrentTime - LastTime;
+		LastTime = CurrentTime;
+
+		Update(DeltaSeconds);
+		Draw(DeltaSeconds);
+
+		//glfwSwapBuffers(window);
 		glfwPollEvents();
-		glClearBufferfv(GL_COLOR, 0, &color[0]);
-
-
-
-		glfwSwapBuffers(window);
 	}
 }
 

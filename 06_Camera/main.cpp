@@ -1,12 +1,12 @@
 #include <Common/Common.h>
-#include "CameraDemo.h"
+#include "CameraApplication.h"
 #include <memory>
 #include <fstream>
-#include "CameraDemo.h"
+#include "CameraApplication.h"
 
 int main()
 {
-	std::unique_ptr<CameraDemo> cameraDemo(new CameraDemo("Coordinate Systems", 800, 600));
+	std::unique_ptr<CameraApplication> cameraDemo(new CameraApplication("Coordinate Systems", 800, 600));
 	
 	try
 	{

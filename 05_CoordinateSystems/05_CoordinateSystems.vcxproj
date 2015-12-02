@@ -159,11 +159,13 @@
     <None Include="shaders\vertexshader.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CoordinateSystemsComponent.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="CoordinateSystemsDemo.cpp" />
+    <ClCompile Include="CoordinateSystemsApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CoordinateSystemsDemo.h" />
+    <ClInclude Include="CoordinateSystemsApplication.h" />
+    <ClInclude Include="CoordinateSystemsComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

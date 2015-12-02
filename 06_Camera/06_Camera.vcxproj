@@ -155,16 +155,16 @@
     <Image Include="res\wall.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragmentshader.frag" />
     <None Include="shaders\fragmentshader.frag" />
     <None Include="shaders\vertexshader.vert" />
-    <None Include="vertexshader.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CameraApplication.cpp" />
     <ClCompile Include="CameraDemo.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraApplication.h" />
     <ClInclude Include="CameraDemo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

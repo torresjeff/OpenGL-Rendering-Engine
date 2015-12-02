@@ -7,6 +7,8 @@
 #include <vector>
 #include "../exceptions/GameException.h"
 #include "InputHandler.h"
+#include "GameComponent.h"
+#include "DrawableGameComponent.h"
 
 using std::cout;
 using std::endl;
@@ -19,16 +21,23 @@ public:
 
 public:
 	virtual void Run();
+	virtual void Update(float DeltaSeconds);
+	virtual void Draw(float DeltaSeconds);
 
+	void AddComponent(GameComponent* component);
+	
+	//Getters/Setters
 	void SetKeyCallback(GLFWkeyfun callback);
-
-	inline int GetWidth() { return width; }
-	inline int GetHeight() { return height; }
+	inline int GetWidth() { return mWidth; }
+	inline int GetHeight() { return mHeight; }
 protected:
-	void InitializeGlfw(std::string name, int WIDTH, int HEIGHT);
-	void InitializeGlew(int WIDTH, int HEIGHT);
+	virtual void InitializeGlfw();
+	virtual void InitializeGlew();
+	virtual void Initialize();
 protected:
 	GLFWwindow* window;
-	int width;
-	int height;
+	std::string mName;
+	int mWidth;
+	int mHeight;
+	std::vector<GameComponent*> mComponents;
 };

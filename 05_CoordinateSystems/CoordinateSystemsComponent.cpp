@@ -1,16 +1,22 @@
-#include "CoordinateSystemsDemo.h"
+#include "CoordinateSystemsComponent.h"
 #include <SOIL/SOIL.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "CoordinateSystemsComponent.h"
 
-CoordinateSystemsDemo::CoordinateSystemsDemo(std::string name, int width, int height)
-	: Application(name, width, height)
-{
-	glEnable(GL_DEPTH_TEST);
-}
+CoordinateSystemsComponent::CoordinateSystemsComponent()
+	: DrawableGameComponent()
+{}
 
-void CoordinateSystemsDemo::Run()
+CoordinateSystemsComponent::CoordinateSystemsComponent(Application & application)
+	: DrawableGameComponent(application)
+{}
+
+void CoordinateSystemsComponent::Initialize()
+{}
+
+void CoordinateSystemsComponent::Draw(float DeltaSeconds)
 {
 	GLuint VAO, VBO, EBO;
 	int imageWidth, imageHeight, imageWidth2, imageHeight2;
@@ -28,7 +34,7 @@ void CoordinateSystemsDemo::Run()
 		-0.5f, -0.5f, 0.5f,		 0.0f, 0.0f,   // Bottom Left = 2
 		-0.5f,  0.5f, 0.5f,		 0.0f, 1.0f,    // Top Left = 3
 
-		//BACK FACE
+												//BACK FACE
 		0.5f,  0.5f, -0.5f,		 1.0f, 1.0f,   // Top Right = 0
 		0.5f, -0.5f, -0.5f,		 1.0f, 0.0f,   // Bottom Right = 1
 		-0.5f, -0.5f, -0.5f,	 0.0f, 0.0f,   // Bottom Left = 2
@@ -36,14 +42,14 @@ void CoordinateSystemsDemo::Run()
 		-0.5f, -0.5f, -0.5f,	 0.0f, 0.0f,   // Bottom Left = 2
 		-0.5f,  0.5f, -0.5f,	 0.0f, 1.0f,    // Top Left = 3
 
-		//RIGHT FACE
+												//RIGHT FACE
 		0.5f,  0.5f, -0.5f,		 1.0f, 1.0f,
 		0.5f, -0.5f, -0.5f,		 1.0f, 0.0f,
 		0.5f, -0.5f, 0.5f,		 0.0f, 0.0f,
 		0.5f,  0.5f, -0.5f,		 1.0f, 1.0f,
 		0.5f, -0.5f, 0.5f,		 0.0f, 0.0f,
 		0.5f,  0.5f, 0.5f,		 0.0f, 1.0f,
-		
+
 		//LEFT FACE
 		-0.5f,  0.5f, -0.5f,	 1.0f, 1.0f,
 		-0.5f, -0.5f, -0.5f,	 1.0f, 0.0f,
@@ -95,7 +101,7 @@ void CoordinateSystemsDemo::Run()
 	glBindTexture(GL_TEXTURE_2D, texture1); //Bind it, so subsequent texture commands will configure the currently bound texture.
 	glUniform1i(glGetUniformLocation(shader.Program(), "ourTexture"), 0); //Set the location of the uniform "ourTexture" to location 0, so it corresponds with GL_TEXTURE0 (active texture-unit).
 
-	// Set the texture wrapping parameters (when specifying texture coordinates out of the [0,1] range).
+																		  // Set the texture wrapping parameters (when specifying texture coordinates out of the [0,1] range).
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT (usually default wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
@@ -104,9 +110,9 @@ void CoordinateSystemsDemo::Run()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); //There's no point in using mipmaps for magnifying (mipmaps are usually used for downscaling) so we don't specify a mipmap filtering option.
 
 
-	//Load the container image and store it as a raw byte array
+																	  //Load the container image and store it as a raw byte array
 	unsigned char* image = SOIL_load_image("res/container.jpg", &imageWidth, &imageHeight, 0, SOIL_LOAD_RGB);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image); 
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 
 	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(image);
@@ -115,8 +121,8 @@ void CoordinateSystemsDemo::Run()
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, texture2);
 	glUniform1i(glGetUniformLocation(shader.Program(), "ourTexture2"), 1);
-	
-	
+
+
 	unsigned char* image2 = SOIL_load_image("res/awesomeface.png", &imageWidth2, &imageHeight2, 0, SOIL_LOAD_RGB);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth2, imageHeight2, 0, GL_RGB, GL_UNSIGNED_BYTE, image2);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -124,22 +130,18 @@ void CoordinateSystemsDemo::Run()
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 
-	while (!glfwWindowShouldClose(window))
-	{
-		glfwPollEvents();
-		
 		//Model matrix = modelToWorld; View matrix = worldToView; projection = Projection Matrix -> ortho/perspective
 		glm::mat4 modelToWorld, worldToview, projection;
 		modelToWorld = glm::rotate(modelToWorld, glm::radians((GLfloat)glfwGetTime() * 50.0f), glm::vec3(0.5f, 1.0f, 0.0f)); //Rotate -55 degress on the X axis
 
-		//Since we want it to look like we're moving the camera backwards (positive Z axis), we instead move the entire scene foreward (negative Z axis)
+																															 //Since we want it to look like we're moving the camera backwards (positive Z axis), we instead move the entire scene foreward (negative Z axis)
 		worldToview = glm::translate(worldToview, glm::vec3(0.0f, 0.0f, -3.0f));
-		
-		projection = glm::perspective(glm::radians(90.0f), (float)width/(float)height, 0.1f, 100.0f);
+
+		projection = glm::perspective(glm::radians(90.0f), (float)mApplication->GetWidth()/(float)mApplication->GetHeight(), 0.1f, 100.0f);
 		glClear(GL_DEPTH_BUFFER_BIT);
 		glClearBufferfv(GL_COLOR, 0, &color[0]);
 		glUseProgram(shader.Program());
-		
+
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture1); //Bind it, so subsequent texture commands will configure the currently bound texture.
 		glUniform1i(glGetUniformLocation(shader.Program(), "ourTexture"), 0); //Set the location of the uniform "ourTexture" to location 0, so it corresponds with GL_TEXTURE0 (active texture-unit).
@@ -147,9 +149,9 @@ void CoordinateSystemsDemo::Run()
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, texture2); //Automatically assigns the texture to the fragment shader's sampler (no need to get uniform location, etc.)
 		glUniform1i(glGetUniformLocation(shader.Program(), "ourTexture2"), 1); //Set the location of the uniform "ourTexture2" to location 1, so it corresponds with GL_TEXTURE1 (active texture-unit).
-		
 
-		glm::vec3 cubePositions[] = 
+
+		glm::vec3 cubePositions[] =
 		{
 			glm::vec3(0.0f, 0.0f, 0.0f),
 			glm::vec3(2.0f, 5.0f, -15.0f),
@@ -174,7 +176,7 @@ void CoordinateSystemsDemo::Run()
 		{
 			glm::mat4 cubesWorldSpace;
 			cubesWorldSpace = glm::translate(cubesWorldSpace, cubePositions[i]);
-			cubesWorldSpace = glm::rotate(cubesWorldSpace, glm::radians((float)20 * (i+1) * (float)glfwGetTime()), glm::vec3(1.0f, 0.3f, 0.5f));
+			cubesWorldSpace = glm::rotate(cubesWorldSpace, glm::radians((float)20 * (i + 1) * (float)glfwGetTime()), glm::vec3(1.0f, 0.3f, 0.5f));
 			GLuint modelLocation = glGetUniformLocation(shader.Program(), "model");
 			glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(cubesWorldSpace));
 
@@ -184,7 +186,6 @@ void CoordinateSystemsDemo::Run()
 
 		glBindVertexArray(0);
 		glUseProgram(0);
-		glfwSwapBuffers(window);
-	}
-
+	
 }
+

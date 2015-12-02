@@ -126,14 +126,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="application\Application.h" />
+    <ClInclude Include="application\DrawableGameComponent.h" />
+    <ClInclude Include="application\GameComponent.h" />
     <ClInclude Include="application\InputHandler.h" />
+    <ClInclude Include="textures\Texture2D.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="exceptions\GameException.h" />
     <ClInclude Include="shaders\shader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="application\Application.cpp" />
+    <ClCompile Include="application\DrawableGameComponent.cpp" />
+    <ClCompile Include="application\GameComponent.cpp" />
     <ClCompile Include="application\InputHandler.cpp" />
+    <ClCompile Include="textures\Texture2D.cpp" />
     <ClCompile Include="exceptions\GameException.cpp" />
     <ClCompile Include="shaders\shader.cpp" />
   </ItemGroup>
