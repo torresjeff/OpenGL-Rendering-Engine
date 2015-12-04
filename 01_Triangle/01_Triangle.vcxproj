@@ -151,10 +151,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TriangleDemo.cpp" />
+    <ClCompile Include="TriangleApplication.cpp" />
+    <ClCompile Include="TriangleComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TriangleDemo.h" />
+    <ClInclude Include="TriangleApplication.h" />
+    <ClInclude Include="TriangleComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\fragmentshader.frag" />

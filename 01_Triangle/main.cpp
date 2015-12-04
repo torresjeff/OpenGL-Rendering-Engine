@@ -1,9 +1,9 @@
-#include "TriangleDemo.h"
+#include "TriangleApplication.h"
 #include <memory>
 
 int main()
 {
-	std::unique_ptr<TriangleDemo> triangleDemo(new TriangleDemo("Triangle", 800, 600));
+	std::unique_ptr<TriangleApplication> triangleDemo(new TriangleApplication("Triangle", 800, 600));
 
 	try
 	{

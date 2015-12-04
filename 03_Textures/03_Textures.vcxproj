@@ -151,12 +151,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TextureComponent.cpp" />
     <None Include="TextureDemo_Comments.cpp" />
-    <ClCompile Include="TextureDemo.cpp" />
+    <ClCompile Include="TextureApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TextureDemo.h" />
+    <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="TextureApplication.h" />
+    <ClInclude Include="TextureComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\fragmentshader.frag" />

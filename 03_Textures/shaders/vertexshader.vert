@@ -11,5 +11,5 @@ void main()
 {
 	gl_Position = vec4(position, 1.0f);
 	vertexColor = color;
-	TexCoord = texCoord;
+	TexCoord = vec2(texCoord.x, 1.0f - texCoord.y); //By default the image is flipped upside down. This is a hack to show the image the way it's supposed to be.
 }
