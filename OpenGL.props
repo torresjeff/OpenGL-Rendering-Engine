@@ -6,7 +6,6 @@
     <IncludePath>$(SolutionDir)include\;$(IncludePath)</IncludePath>
     <IntDir>$(SolutionDir)intermediates\$(ProjectName)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)build\$(Configuration)\</OutDir>
-    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
