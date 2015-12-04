@@ -151,10 +151,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ShaderDemo.cpp" />
+    <ClCompile Include="ShaderApplication.cpp" />
+    <ClCompile Include="ShaderComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ShaderDemo.h" />
+    <ClInclude Include="ShaderApplication.h" />
+    <ClInclude Include="ShaderComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\fragmentshader.frag" />

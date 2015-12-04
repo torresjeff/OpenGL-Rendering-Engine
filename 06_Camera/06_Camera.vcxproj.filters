@@ -36,7 +36,7 @@
     <ClCompile Include="CameraApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CameraDemo.cpp">
+    <ClCompile Include="CameraComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,7 +44,7 @@
     <ClInclude Include="CameraApplication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CameraDemo.h">
+    <ClInclude Include="CameraComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

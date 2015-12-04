@@ -1,14 +1,14 @@
-#include "CameraDemo.h"
+#include "CameraComponent.h"
 
-CameraDemo::CameraDemo()
+CameraComponent::CameraComponent()
 	: DrawableGameComponent()
 {}
 
-CameraDemo::CameraDemo(Application & application)
+CameraComponent::CameraComponent(Application & application)
 	: DrawableGameComponent(application)
 {}
 
-void CameraDemo::Initialize()
+void CameraComponent::Initialize()
 {
 
 	mVertices =
@@ -117,7 +117,7 @@ void CameraDemo::Initialize()
 	mTextureAwesomeFace.UnbindTexture();
 }
 
-void CameraDemo::Draw(float DeltaSeconds)
+void CameraComponent::Draw(float DeltaSeconds)
 {
 	//Model matrix = modelToWorld; View matrix = worldToView; projection = Projection Matrix -> ortho/perspective
 	glm::mat4 modelToWorld, worldToview, projection;

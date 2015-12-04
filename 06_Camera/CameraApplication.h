@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Common/Common.h>
-#include "CameraDemo.h"
+#include "CameraComponent.h"
 
 class CameraApplication : public Application
 {
@@ -12,7 +12,7 @@ protected:
 	virtual void Initialize() override;
 	virtual void Draw(float DeltaSeconds) override;
 private:
-	CameraDemo* mCameraDemo;
+	CameraComponent* mCameraDemo;
 	std::vector<GLfloat> mBackgroundColor;//{ 0.2f, 0.3f, 0.3f, 1.0f }; //Background color
 };
 

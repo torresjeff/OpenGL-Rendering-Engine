@@ -45,7 +45,7 @@ void Texture2D::LoadTexture(std::string path)
 void Texture2D::BindTexture(GLenum textureUnit)
 {
 	glActiveTexture(textureUnit);
-	glBindTexture(GL_TEXTURE_2D, mTexture);
+	glBindTexture(GL_TEXTURE_2D, mTexture); //Bind it, so subsequent texture commands will configure the currently bound texture.
 	mLocation = textureUnit - GL_TEXTURE0;
 }
 
@@ -100,7 +100,8 @@ void Texture2D::SetProgram(GLuint program)
 
 void Texture2D::SetSampler2D(std::string name)
 {
-	glUniform1i(glGetUniformLocation(mProgram, name.c_str()), mLocation);
+	glUniform1i(glGetUniformLocation(mProgram, name.c_str()), mLocation); //Set the value of the uniform "name" to location, so it corresponds with "mLocation".
+																		//Eg. the uniform sampler2D "ourTexture" corresponds to GL_TEXTURE0 (active texture-unit), so mLocation is 0.
 }
 
 

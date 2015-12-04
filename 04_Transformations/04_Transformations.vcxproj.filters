@@ -33,12 +33,18 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TransformationDemo.cpp">
+    <ClCompile Include="TransformationApplication.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformationComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TransformationDemo.h">
+    <ClInclude Include="TransformationComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformationApplication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

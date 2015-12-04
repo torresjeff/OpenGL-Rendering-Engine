@@ -1,6 +1,6 @@
 #include <glm/common.hpp>
 #include "InputHandler.h"
-#include "TextureDemo.h"
+#include "TextureApplication.h"
 
 void TextureDemoCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {

@@ -6,11 +6,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-class CameraDemo : public DrawableGameComponent
+class CameraComponent : public DrawableGameComponent
 {
 public:
-	CameraDemo();
-	CameraDemo(Application& application);
+	CameraComponent();
+	CameraComponent(Application& application);
 
 	virtual void Initialize() override;
 	virtual void Draw(float DeltaSeconds) override;

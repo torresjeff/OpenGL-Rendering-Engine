@@ -2,6 +2,8 @@
 
 #include <Common/Common.h>
 
+
+
 class CoordinateSystemsComponent : public DrawableGameComponent
 {
 public:
@@ -11,5 +13,9 @@ public:
 	virtual void Initialize() override;
 	virtual void Draw(float DeltaSeconds) override;
 protected:
-
+	GLuint VAO, VBO, EBO;
+	std::vector<GLfloat> mVertices;
+	std::vector<glm::vec3> mCubePositions;
+	Texture2D mTextureContainer, mTextureAwesomeFace;
+	Shader mShader;
 };

@@ -2,7 +2,7 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "TextureDemo.h"
+#include "TextureApplication.h"
 
 extern GLfloat interpolation;
 

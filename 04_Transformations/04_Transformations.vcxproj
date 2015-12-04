@@ -160,10 +160,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TransformationDemo.cpp" />
+    <ClCompile Include="TransformationApplication.cpp" />
+    <ClCompile Include="TransformationComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TransformationDemo.h" />
+    <ClInclude Include="TransformationComponent.h" />
+    <ClInclude Include="TransformationApplication.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

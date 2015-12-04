@@ -160,12 +160,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraApplication.cpp" />
-    <ClCompile Include="CameraDemo.cpp" />
+    <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraApplication.h" />
-    <ClInclude Include="CameraDemo.h" />
+    <ClInclude Include="CameraComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

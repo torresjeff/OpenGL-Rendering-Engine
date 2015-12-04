@@ -20,7 +20,7 @@ CameraApplication::~CameraApplication()
 
 void CameraApplication::Initialize()
 {
-	mCameraDemo = new CameraDemo(*this);
+	mCameraDemo = new CameraComponent(*this);
 	mComponents.push_back(mCameraDemo);
 
 	mBackgroundColor = { 0.2f, 0.3f, 0.3f, 1.0f };

@@ -1,11 +1,11 @@
-#include "TextureDemo.h"
+#include "TextureApplication.h"
 #include <SOIL/SOIL.h>
 
-TextureDemo::TextureDemo(std::string name, int width, int height)
+TextureApplication::TextureApplication(std::string name, int width, int height)
 	: Application(name, width, height)
 {}
 
-void TextureDemo::Run()
+void TextureApplication::Run()
 {
 	GLuint VAO, VBO, EBO;
 	int imageWidth, imageHeight, imageWidth2, imageHeight2;

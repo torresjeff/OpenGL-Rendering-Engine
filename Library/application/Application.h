@@ -34,6 +34,7 @@ protected:
 	virtual void InitializeGlfw();
 	virtual void InitializeGlew();
 	virtual void Initialize();
+	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 protected:
 	GLFWwindow* window;
 	std::string mName;

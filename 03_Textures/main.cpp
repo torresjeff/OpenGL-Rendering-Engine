@@ -1,12 +1,12 @@
 #include <Common/Common.h>
-#include "TextureDemo.h"
+#include "TextureApplication.h"
 #include <memory>
 #include <fstream>
 #include "InputHandler.h"
 
 int main()
 {
-	std::unique_ptr<TextureDemo> textureDemo(new TextureDemo("Textures", 800, 600));
+	std::unique_ptr<TextureApplication> textureDemo(new TextureApplication("Textures", 800, 600));
 
 	try
 	{

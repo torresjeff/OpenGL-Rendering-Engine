@@ -1,12 +1,12 @@
 #include <Common/Common.h>
-#include "TransformationDemo.h"
+#include "TransformationApplication.h"
 #include <memory>
 #include <fstream>
-#include "TransformationDemo.h"
+#include "TransformationApplication.h"
 
 int main()
 {
-	std::unique_ptr<TransformationDemo> textureDemo(new TransformationDemo("Transformations", 800, 600));
+	std::unique_ptr<TransformationApplication> textureDemo(new TransformationApplication("Transformations", 800, 600));
 	
 	try
 	{
