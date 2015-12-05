@@ -1,9 +1,6 @@
 #include "CameraApplication.h"
 #include <SOIL/SOIL.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
+#include "CameraInputHandler.h"
 
 CameraApplication::CameraApplication(std::string name, int width, int height)
 	: Application(name, width, height)
@@ -27,6 +24,11 @@ void CameraApplication::Initialize()
 
 	glEnable(GL_DEPTH_TEST);
 	Application::Initialize();
+
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); //if we want to hide the cursor
+	glfwSetKeyCallback(window, CameraKeyCallback);
+	glfwSetCursorPosCallback(window, MouseCallback);
+	glfwSetScrollCallback(window, ScrollCallback);
 }
 
 void CameraApplication::Draw(float DeltaSeconds)
@@ -38,3 +40,4 @@ void CameraApplication::Draw(float DeltaSeconds)
 
 	glfwSwapBuffers(window);
 }
+

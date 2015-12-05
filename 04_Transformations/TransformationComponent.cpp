@@ -78,24 +78,23 @@ void TransformationComponent::Draw(float DeltaSeconds)
 {
 	// Scaling operations -> rotation operations -> translation operations
 	glm::mat4 transform;
-	//Even though the operations here don't appear to be in the order describes above, the transformation is still scale -> rotate -> translate.
+	//Even though the operations here don't appear to be in the order described above, the transformation is still scale -> rotate -> translate.
 	transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
 	transform = glm::rotate(transform, glm::radians((GLfloat)glfwGetTime() * 40), glm::vec3(0.0f, 0.0f, 1.0f)); //Third parameter (axis): we want to rotate around the Z axis
 	transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 0.5f));
 
 	glUseProgram(mShader.Program());
 
+	GLuint transformLocation = glGetUniformLocation(mShader.Program(), "transform");
+	glUniformMatrix4fv(transformLocation, 1, GL_FALSE, glm::value_ptr(transform));
+
+	glBindVertexArray(VAO);
+
 	mTextureContainer.BindTexture(GL_TEXTURE0);
 	mTextureContainer.SetSampler2D("ourTexture");
 
 	mTextureAwesomeFace.BindTexture(GL_TEXTURE1);
 	mTextureAwesomeFace.SetSampler2D("ourTexture2");
-
-
-	GLuint transformLocation = glGetUniformLocation(mShader.Program(), "transform");
-	glUniformMatrix4fv(transformLocation, 1, GL_FALSE, glm::value_ptr(transform));
-
-	glBindVertexArray(VAO);
 
 	glDrawElements(GL_TRIANGLES, mIndices.size(), GL_UNSIGNED_INT, nullptr);
 

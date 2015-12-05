@@ -13,13 +13,17 @@ public:
 	CameraComponent(Application& application);
 
 	virtual void Initialize() override;
+	virtual void Update(float DeltaSeconds) override;
 	virtual void Draw(float DeltaSeconds) override;
+	void ConsumeInput(float DeltaSeconds);
 protected:
-	GLuint VAO, VBO, EBO;
-	GLuint texture1, texture2;
-	Shader shader;
+	GLuint VAO, VBO;
+	Shader mShader;
 	std::vector<GLfloat> mVertices;
 	Texture2D mTextureContainer, mTextureAwesomeFace;
 	std::vector<glm::vec3> mCubePositions;
 	
+
+	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); // Up vector in world space, used to get the right vector with the cross product
 };

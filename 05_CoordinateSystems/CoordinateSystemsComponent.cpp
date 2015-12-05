@@ -82,7 +82,6 @@ void CoordinateSystemsComponent::Initialize()
 
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
 
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -125,27 +124,25 @@ void CoordinateSystemsComponent::Initialize()
 void CoordinateSystemsComponent::Draw(float DeltaSeconds)
 {
 		//Model matrix = modelToWorld; View matrix = worldToView; projection = Projection Matrix -> ortho/perspective
-		glm::mat4 modelToWorld, worldToview, projection;
-		modelToWorld = glm::rotate(modelToWorld, glm::radians((GLfloat)glfwGetTime() * 50.0f), glm::vec3(0.5f, 1.0f, 0.0f)); //Rotate -55 degress on the X axis
+		glm::mat4 modelMatrix, viewMatrix, projectionMatrix;
+		modelMatrix = glm::rotate(modelMatrix, glm::radians((GLfloat)glfwGetTime() * 50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
 
 		//Since we want it to look like we're moving the camera backwards (positive Z axis), we instead move the entire scene foreward (negative Z axis)
-		worldToview = glm::translate(worldToview, glm::vec3(0.0f, 0.0f, -3.0f));
+		viewMatrix = glm::translate(viewMatrix, glm::vec3(0.0f, 0.0f, -3.0f));
 
-		projection = glm::perspective(glm::radians(90.0f), (float)mApplication->GetWidth()/(float)mApplication->GetHeight(), 0.1f, 100.0f);
-		glUseProgram(mShader.Program());
+		projectionMatrix = glm::perspective(glm::radians(90.0f), (float)mApplication->GetWidth()/(float)mApplication->GetHeight(), 0.1f, 100.0f);
+		
+		mShader.UseProgram();
 
 		mTextureContainer.BindTexture(GL_TEXTURE0);
 		mTextureContainer.SetSampler2D("ourTexture");
-
 		mTextureAwesomeFace.BindTexture(GL_TEXTURE1);
 		mTextureAwesomeFace.SetSampler2D("ourTexture2");
 
-		
-
 		GLuint viewLocation = glGetUniformLocation(mShader.Program(), "view");
-		glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(worldToview));
+		glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 		GLuint projectionLocation = glGetUniformLocation(mShader.Program(), "projection");
-		glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projection));
+		glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
 		glBindVertexArray(VAO);
 
@@ -158,7 +155,6 @@ void CoordinateSystemsComponent::Draw(float DeltaSeconds)
 			glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(cubesWorldSpace));
 
 			glDrawArrays(GL_TRIANGLES, 0, 36);
-
 		}
 
 		glBindVertexArray(0);

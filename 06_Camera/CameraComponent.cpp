@@ -1,5 +1,12 @@
 #include "CameraComponent.h"
 
+//TODO: remove global variables
+bool keys[1024];
+GLfloat lastX = 400.0f, lastY = 300.0f;
+GLfloat pitch = 0.0f, yaw = 0.0f;
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+GLfloat fov = 90.0f;
+
 CameraComponent::CameraComponent()
 	: DrawableGameComponent()
 {}
@@ -65,7 +72,6 @@ void CameraComponent::Initialize()
 
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
 
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -77,7 +83,7 @@ void CameraComponent::Initialize()
 
 	glBindVertexArray(0);
 
-	shader = Shader("shaders/vertexshader.vert", "shaders/fragmentshader.frag");
+	mShader = Shader("shaders/vertexshader.vert", "shaders/fragmentshader.frag");
 
 	mCubePositions =
 	{
@@ -94,7 +100,7 @@ void CameraComponent::Initialize()
 	};
 	
 	//---------- TEXTURES ----------//
-	mTextureContainer.SetProgram(shader.Program());
+	mTextureContainer.SetProgram(mShader.Program());
 	mTextureContainer.BindTexture(GL_TEXTURE0);
 	mTextureContainer.SetTextureParameter(GL_TEXTURE_WRAP_S, GL_REPEAT);
 	mTextureContainer.SetTextureParameter(GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -105,7 +111,7 @@ void CameraComponent::Initialize()
 	mTextureContainer.GenerateMipmaps();
 	mTextureContainer.UnbindTexture();
 	
-	mTextureAwesomeFace.SetProgram(shader.Program());
+	mTextureAwesomeFace.SetProgram(mShader.Program());
 	mTextureAwesomeFace.BindTexture(GL_TEXTURE1);
 	mTextureAwesomeFace.SetTextureParameter(GL_TEXTURE_WRAP_S, GL_REPEAT);
 	mTextureAwesomeFace.SetTextureParameter(GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -117,20 +123,29 @@ void CameraComponent::Initialize()
 	mTextureAwesomeFace.UnbindTexture();
 }
 
+void CameraComponent::Update(float DeltaSeconds)
+{
+	ConsumeInput(DeltaSeconds);
+}
+
 void CameraComponent::Draw(float DeltaSeconds)
 {
-	//Model matrix = modelToWorld; View matrix = worldToView; projection = Projection Matrix -> ortho/perspective
-	glm::mat4 modelToWorld, worldToview, projection;
-	modelToWorld = glm::rotate(modelToWorld, glm::radians((GLfloat)glfwGetTime() * 50.0f), glm::vec3(0.5f, 1.0f, 0.0f)); //Rotate -55 degress on the X axis
+	//---- Note: all this is easily achieved using the glm::lookAt function, which does all the cross products for us and returns the final lookAt matrix. ----//
+	//glm::vec3 cameraPosition = glm::vec3(0.0f, 0.0f, 3.0f); // in world space
+	//glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f); // in world space
+	//glm::vec3 cameraDirection = glm::normalize(cameraPosition - cameraTarget); //The direction actually points to the reverse direction of what it is targeting
+	//glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f); //We use this up vector (world space) to calculate the right vector of the camera using the cross product.
+	//glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
+	//glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
 	
-	//Since we want it to look like we're moving the camera backwards (positive Z axis), we instead move the entire scene foreward (negative Z axis)
-	worldToview = glm::translate(worldToview, glm::vec3(0.0f, 0.0f, -3.0f));
+	
+	//1st parameter = camera position (in world space), 2nd parameter = camera's target, 3rd parameter = up vector (in world space)
+	// Making the target = cameraPos + cameraFront, ensures that the camera is always looking at the target direction/(front?) and not a single fixed point.
+	glm::mat4 viewMatrix = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 			
-	projection = glm::perspective(glm::radians(90.0f), (float)mApplication->GetWidth()/(float)mApplication->GetHeight(), 0.1f, 100.0f);
-		
-	//glClearBufferfv(GL_COLOR, 0, &color[0]);
-	shader.UseProgram();
+	glm::mat4 projectionMatrix = glm::perspective(glm::radians(fov), (float)mApplication->GetWidth()/(float)mApplication->GetHeight(), 0.01f, 100.0f);
 	
+	mShader.UseProgram();
 
 	mTextureContainer.BindTexture(GL_TEXTURE0);
 	mTextureContainer.SetSampler2D("ourTexture");
@@ -138,10 +153,10 @@ void CameraComponent::Draw(float DeltaSeconds)
 	mTextureAwesomeFace.BindTexture(GL_TEXTURE1);
 	mTextureAwesomeFace.SetSampler2D("ourTexture2");
 	
-	GLuint viewLocation = glGetUniformLocation(shader.Program(), "view");
-	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(worldToview));
-	GLuint projectionLocation = glGetUniformLocation(shader.Program(), "projection");
-	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projection));
+	GLuint viewLocation = glGetUniformLocation(mShader.Program(), "view");
+	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+	GLuint projectionLocation = glGetUniformLocation(mShader.Program(), "projection");
+	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	
 	glBindVertexArray(VAO);
 	
@@ -150,12 +165,40 @@ void CameraComponent::Draw(float DeltaSeconds)
 		glm::mat4 cubesWorldSpace;
 		cubesWorldSpace = glm::translate(cubesWorldSpace, mCubePositions[i]);
 		cubesWorldSpace = glm::rotate(cubesWorldSpace, glm::radians((float)20 * (i+1) * (float)glfwGetTime()), glm::vec3(1.0f, 0.3f, 0.5f));
-		GLuint modelLocation = glGetUniformLocation(shader.Program(), "model");
+		GLuint modelLocation = glGetUniformLocation(mShader.Program(), "model");
 		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(cubesWorldSpace));
 	
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-	
 	}
 	
 	glBindVertexArray(0);
+}
+
+void CameraComponent::ConsumeInput(float DeltaSeconds)
+{
+	GLfloat cameraSpeed = 5.0f * DeltaSeconds;
+	if (keys[GLFW_KEY_W])
+	{
+		cameraPos += cameraFront * cameraSpeed;
+	}
+	if (keys[GLFW_KEY_S])
+	{
+		cameraPos -= cameraFront * cameraSpeed;
+	}
+	if (keys[GLFW_KEY_A])
+	{
+		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	}
+	if (keys[GLFW_KEY_D])
+	{
+		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	}
+	if (keys[GLFW_KEY_Q])
+	{
+		cameraPos -= cameraUp * cameraSpeed;
+	}
+	if (keys[GLFW_KEY_E])
+	{
+		cameraPos += cameraUp * cameraSpeed;
+	}
 }

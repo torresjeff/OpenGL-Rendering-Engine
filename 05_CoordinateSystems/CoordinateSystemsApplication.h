@@ -10,7 +10,6 @@ public:
 
 	virtual void Initialize() override;
 	virtual void Draw(float DeltaSeconds) override;
-	//virtual void Run() override;
 private:
 	std::vector<GLfloat> mBackgroundColor{ 0.2f, 0.3f, 0.3f, 1.0f };
 	CoordinateSystemsComponent* mCoordinateSystemDemo;

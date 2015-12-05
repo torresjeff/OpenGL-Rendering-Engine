@@ -56,7 +56,8 @@ void Application::InitializeGlfw()
 		return;
 	}
 
-	glfwSetKeyCallback(window, &key_callback);
+	glfwSetKeyCallback(window, &Application::key_callback);
+	glfwSetWindowSizeCallback(window, &Application::WindowResizeCallback);
 	glfwMakeContextCurrent(window);
 }
 
@@ -82,7 +83,7 @@ void Application::Initialize()
 	}
 }
 
-void Application::key_callback(GLFWwindow * window, int key, int scancode, int action, int mode)
+void Application::key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	switch (key)
 	{
@@ -95,6 +96,11 @@ void Application::key_callback(GLFWwindow * window, int key, int scancode, int a
 		}
 		break;
 	}
+}
+
+void Application::WindowResizeCallback(GLFWwindow * window, int width, int height)
+{
+	glViewport(0, 0, width, height);
 }
 
 void Application::Run()
