@@ -3,7 +3,8 @@
 //TODO: remove global variables
 bool keys[1024];
 GLfloat lastX = 400.0f, lastY = 300.0f;
-GLfloat pitch = 0.0f, yaw = 0.0f;
+GLfloat pitch = 0.0f;
+GLfloat yaw = -90.0f;	// Yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right (due to how Eular angles work) so we initially rotate a bit to the left.
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 GLfloat fov = 90.0f;
 
@@ -106,7 +107,7 @@ void CameraComponent::Initialize()
 	mTextureContainer.SetTextureParameter(GL_TEXTURE_WRAP_T, GL_REPEAT);
 	mTextureContainer.SetTextureParameter(GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	mTextureContainer.SetTextureParameter(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	mTextureContainer.LoadTexture("res\\container.jpg");
+	mTextureContainer.LoadTexture("res\\wall.jpg");
 	mTextureContainer.GenerateTexture(GL_RGB, GL_RGB, GL_UNSIGNED_BYTE);
 	mTextureContainer.GenerateMipmaps();
 	mTextureContainer.UnbindTexture();
@@ -139,10 +140,12 @@ void CameraComponent::Draw(float DeltaSeconds)
 	//glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
 	
 	
-	//1st parameter = camera position (in world space), 2nd parameter = camera's target, 3rd parameter = up vector (in world space)
-	// Making the target = cameraPos + cameraFront, ensures that the camera is always looking at the target direction/(front?) and not a single fixed point.
+	//1st parameter = camera position (in world space), 2nd parameter = camera's target (in world space), 3rd parameter = up vector (in world space, usually <0.0f, 1.0f, 0.0f>), can also be local up of the camera
+	// Making the target = cameraPos + cameraFront, ensures that the camera is always looking at the target direction/front and not a single fixed point.
+	cameraPos.y = 0.0f;
 	glm::mat4 viewMatrix = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-			
+	
+	//We calculate it every frame because of the zoom in functionality, which can change the fov value.
 	glm::mat4 projectionMatrix = glm::perspective(glm::radians(fov), (float)mApplication->GetWidth()/(float)mApplication->GetHeight(), 0.01f, 100.0f);
 	
 	mShader.UseProgram();
