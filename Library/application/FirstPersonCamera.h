@@ -22,8 +22,7 @@ public:
 protected:
 	float mSpeed;
 	float mMouseSensitivity;
-	
+	float mRotationRate;
 private:
 	double mLastCursorX, mLastCursorY;
-	float mRotationRate;
 };

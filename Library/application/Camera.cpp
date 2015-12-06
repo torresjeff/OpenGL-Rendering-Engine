@@ -43,7 +43,6 @@ void Camera::Reset()
 void Camera::UpdateViewMatrix()
 {
 	glm::vec3 target = mPosition + mDirection;
-
 	mViewMatrix = glm::lookAt(mPosition, target, mUp);
 }
 
@@ -54,15 +53,15 @@ void Camera::UpdateProjectionMatrix()
 
 void Camera::ApplyRotation(const glm::mat4& transform)
 {
-	glm::vec4 direction = transform * glm::vec4(mDirection, 0.0f);
+	// Whenever the homogeneous coordinate (w, 4th element of a vec4) is equal to 0 the vector is specifically known as a direction vector since a vector with a w coordinate of 0 cannot be translated.
+	glm::vec4 direction = transform * glm::vec4(mDirection, 0.0f); // Here we're rotating our direction vector by the rotation specified in the transform matrix.
 	mDirection = (glm::vec3)glm::normalize(direction);
 
-	// Whenever the homogeneous coordinate (w, 4th element of a vec4) is equal to 0 the vector is specifically known as a direction vector since a vector with a w coordinate of 0 cannot be translated.
-	glm::vec4 up = transform * glm::vec4(mUp, 0.0f);
+	glm::vec4 up = transform * glm::vec4(mUp, 0.0f); // Now we're rotationg our up vector by the rotation specified in the transform matrix.
 	mUp = (glm::vec3)glm::normalize(up);
 
-	mRight = glm::cross(mDirection, mUp);
-	mUp = glm::cross(mRight, mDirection);
+	mRight = glm::cross(mDirection, mUp); // Calculate the new right vector
+	mUp = glm::cross(mRight, mDirection); 
 }
 
 glm::mat4 Camera::GetViewMatrix()
