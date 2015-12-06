@@ -13,9 +13,7 @@ public:
 	CameraComponent(Application& application, Camera& camera);
 
 	virtual void Initialize() override;
-	virtual void Update(float DeltaSeconds) override;
 	virtual void Draw(float DeltaSeconds) override;
-	void ConsumeInput(float DeltaSeconds);
 protected:
 	GLuint VAO, VBO;
 	Shader mShader;

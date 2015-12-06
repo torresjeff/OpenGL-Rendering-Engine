@@ -15,7 +15,10 @@ ColorsApplication::~ColorsApplication()
 
 void ColorsApplication::Initialize()
 {
-	mColorComponent = new ColorsComponent(*this);
+	mCamera = new FirstPersonCamera(*this);
+	mComponents.push_back(mCamera);
+
+	mColorComponent = new ColorsComponent(*this, *mCamera);
 	mComponents.push_back(mColorComponent);
 	
 	glEnable(GL_DEPTH_TEST);

@@ -10,10 +10,20 @@ public:
 
 	virtual void Initialize() override;
 	virtual void Update(float DeltaSeconds) override;
+	
+	float GetSpeed();
+	void SetSpeed(float speed);
+	float GetMouseSensitivity();
+	void SetMouseSensitivity(float mouseSensitivity);
+	
 	static const float DefaultSpeed;
+	static const float DefualtMouseSensitivity;
+	static const float DefaultRotationRate;
 protected:
 	float mSpeed;
-
+	float mMouseSensitivity;
+	
 private:
 	double mLastCursorX, mLastCursorY;
+	float mRotationRate;
 };

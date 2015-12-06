@@ -6,6 +6,7 @@ class ColorsComponent : public DrawableGameComponent
 {
 public:
 	ColorsComponent(Application& application);
+	ColorsComponent(Application& application, Camera& camera);
 
 	virtual void Initialize() override;
 	virtual void Draw(float DeltaSeconds) override;

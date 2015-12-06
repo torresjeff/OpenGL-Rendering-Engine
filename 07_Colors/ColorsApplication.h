@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Common/Common.h>
+#include <Common/application/FirstPersonCamera.h>
 #include "ColorsComponent.h"
 
 class ColorsApplication : public Application
@@ -14,4 +15,5 @@ public:
 private:
 	std::vector<GLfloat> mBackgroundColor{ 0.2f, 0.3f, 0.3f, 1.0f };
 	ColorsComponent* mColorComponent;
+	FirstPersonCamera* mCamera;
 };

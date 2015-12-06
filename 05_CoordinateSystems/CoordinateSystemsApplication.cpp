@@ -11,7 +11,10 @@ CoordinateSystemsApplication::CoordinateSystemsApplication(std::string name, int
 
 void CoordinateSystemsApplication::Initialize()
 {
-	mCoordinateSystemDemo = new CoordinateSystemsComponent(*this);
+	mCamera = new FirstPersonCamera(*this);
+	mComponents.push_back(mCamera);
+
+	mCoordinateSystemDemo = new CoordinateSystemsComponent(*this, *mCamera);
 	mComponents.push_back(mCoordinateSystemDemo);
 
 	glEnable(GL_DEPTH_TEST);

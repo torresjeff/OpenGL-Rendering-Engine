@@ -1,13 +1,5 @@
 #include "CameraComponent.h"
 
-//TODO: remove global variables
-bool keys[1024];
-GLfloat lastX = 400.0f, lastY = 300.0f;
-GLfloat pitch = 0.0f;
-GLfloat yaw = -90.0f;	// Yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right (due to how Eular angles work) so we initially rotate a bit to the left.
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-GLfloat fov = 90.0f;
-
 
 CameraComponent::CameraComponent(Application & application)
 	: DrawableGameComponent(application)
@@ -125,10 +117,6 @@ void CameraComponent::Initialize()
 	mTextureAwesomeFace.UnbindTexture();
 }
 
-void CameraComponent::Update(float DeltaSeconds)
-{
-	ConsumeInput(DeltaSeconds);
-}
 
 void CameraComponent::Draw(float DeltaSeconds)
 {
@@ -144,10 +132,10 @@ void CameraComponent::Draw(float DeltaSeconds)
 	//1st parameter = camera position (in world space), 2nd parameter = camera's target (in world space), 3rd parameter = up vector (in world space, usually <0.0f, 1.0f, 0.0f>), can also be local up of the camera
 	// Making the target = cameraPos + cameraFront, ensures that the camera is always looking at the target direction/front and not a single fixed point.
 	cameraPos.y = 0.0f;
-	glm::mat4 viewMatrix = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+	/*glm::mat4 viewMatrix = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);*/
 	
 	//We calculate it every frame because of the zoom in functionality, which can change the fov value.
-	glm::mat4 projectionMatrix = glm::perspective(glm::radians(fov), (float)mApplication->GetWidth()/(float)mApplication->GetHeight(), 0.01f, 100.0f);
+	//glm::mat4 projectionMatrix = glm::perspective(glm::radians(fov), (float)mApplication->GetWidth()/(float)mApplication->GetHeight(), 0.01f, 100.0f);
 	
 	mShader.UseProgram();
 
@@ -158,10 +146,9 @@ void CameraComponent::Draw(float DeltaSeconds)
 	mTextureAwesomeFace.SetSampler2D("ourTexture2");
 	
 	GLuint viewLocation = glGetUniformLocation(mShader.Program(), "view");
-	//glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(mCamera->GetViewMatrix()));
 	GLuint projectionLocation = glGetUniformLocation(mShader.Program(), "projection");
-	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(mCamera->GetProjectionMatrix()));
 	
 	glBindVertexArray(VAO);
 	
@@ -177,33 +164,4 @@ void CameraComponent::Draw(float DeltaSeconds)
 	}
 	
 	glBindVertexArray(0);
-}
-
-void CameraComponent::ConsumeInput(float DeltaSeconds)
-{
-	GLfloat cameraSpeed = 5.0f * DeltaSeconds;
-	if (keys[GLFW_KEY_W])
-	{
-		cameraPos += cameraFront * cameraSpeed;
-	}
-	if (keys[GLFW_KEY_S])
-	{
-		cameraPos -= cameraFront * cameraSpeed;
-	}
-	if (keys[GLFW_KEY_A])
-	{
-		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	}
-	if (keys[GLFW_KEY_D])
-	{
-		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	}
-	if (keys[GLFW_KEY_Q])
-	{
-		cameraPos -= cameraUp * cameraSpeed;
-	}
-	if (keys[GLFW_KEY_E])
-	{
-		cameraPos += cameraUp * cameraSpeed;
-	}
 }

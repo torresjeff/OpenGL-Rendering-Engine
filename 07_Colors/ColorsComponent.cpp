@@ -4,6 +4,10 @@ ColorsComponent::ColorsComponent(Application & application)
 	: DrawableGameComponent(application)
 {}
 
+ColorsComponent::ColorsComponent(Application & application, Camera& camera)
+	: DrawableGameComponent(application, camera)
+{}
+
 void ColorsComponent::Initialize()
 {
 	mVertices =
@@ -101,7 +105,7 @@ void ColorsComponent::Initialize()
 
 void ColorsComponent::Draw(float DeltaSeconds)
 {
-	glm::mat4 model, view, projection;
+	glm::mat4 model;
 	//---- Container Shader ----//
 	mContainerShader.UseProgram();
 	glBindVertexArray(cubeVao);
@@ -109,9 +113,7 @@ void ColorsComponent::Draw(float DeltaSeconds)
 	model = glm::translate(model, glm::vec3(0.0f, 0.0f, -10.0f));
 	model = glm::rotate(model, glm::radians(60.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-	view = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	projection = glm::perspective(glm::radians(90.0f), (GLfloat)mApplication->GetWidth() / (GLfloat)mApplication->GetHeight(), 0.01f, 100.0f);
-
+	
 	GLuint modelLocation = glGetUniformLocation(mContainerShader.Program(), "model");
 	GLuint viewLocation = glGetUniformLocation(mContainerShader.Program(), "view");
 	GLuint projectionLocation = glGetUniformLocation(mContainerShader.Program(), "projection");
@@ -119,8 +121,8 @@ void ColorsComponent::Draw(float DeltaSeconds)
 	GLuint lightColorLocation = glGetUniformLocation(mContainerShader.Program(), "lightColor");
 
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
-	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
-	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projection));
+	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(mCamera->GetViewMatrix()));
+	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(mCamera->GetProjectionMatrix()));
 
 	glUniform3f(objectColorLocation, 1.0f, 0.5f, 0.31f);
 	glUniform3f(lightColorLocation, 1.0f, 0.5f, 1.0f);
@@ -145,8 +147,8 @@ void ColorsComponent::Draw(float DeltaSeconds)
 	projectionLocation = glGetUniformLocation(mLightShader.Program(), "projection");
 
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
-	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
-	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projection));
+	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(mCamera->GetViewMatrix()));
+	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(mCamera->GetProjectionMatrix()));
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 

@@ -161,13 +161,11 @@
   <ItemGroup>
     <ClCompile Include="CameraApplication.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
-    <ClCompile Include="CameraInputHandler.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraApplication.h" />
     <ClInclude Include="CameraComponent.h" />
-    <ClInclude Include="CameraInputHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

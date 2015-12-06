@@ -7,8 +7,8 @@
 class CoordinateSystemsComponent : public DrawableGameComponent
 {
 public:
-	CoordinateSystemsComponent();
 	CoordinateSystemsComponent(Application& application);
+	CoordinateSystemsComponent(Application& application, Camera& camera);
 	
 	virtual void Initialize() override;
 	virtual void Draw(float DeltaSeconds) override;

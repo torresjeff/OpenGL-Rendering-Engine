@@ -2,12 +2,13 @@
 #include <SOIL/SOIL.h>
 #include "CoordinateSystemsComponent.h"
 
-CoordinateSystemsComponent::CoordinateSystemsComponent()
-	: DrawableGameComponent()
+
+CoordinateSystemsComponent::CoordinateSystemsComponent(Application& application)
+	: DrawableGameComponent(application)
 {}
 
-CoordinateSystemsComponent::CoordinateSystemsComponent(Application & application)
-	: DrawableGameComponent(application)
+CoordinateSystemsComponent::CoordinateSystemsComponent(Application& application, Camera& camera)
+	: DrawableGameComponent(application, camera)
 {}
 
 void CoordinateSystemsComponent::Initialize()
