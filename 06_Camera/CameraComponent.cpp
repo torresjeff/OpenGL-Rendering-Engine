@@ -8,12 +8,13 @@ GLfloat yaw = -90.0f;	// Yaw is initialized to -90.0 degrees since a yaw of 0.0 
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 GLfloat fov = 90.0f;
 
-CameraComponent::CameraComponent()
-	: DrawableGameComponent()
-{}
 
 CameraComponent::CameraComponent(Application & application)
 	: DrawableGameComponent(application)
+{}
+
+CameraComponent::CameraComponent(Application & application, Camera& camera)
+	: DrawableGameComponent(application, camera)
 {}
 
 void CameraComponent::Initialize()
@@ -157,7 +158,8 @@ void CameraComponent::Draw(float DeltaSeconds)
 	mTextureAwesomeFace.SetSampler2D("ourTexture2");
 	
 	GLuint viewLocation = glGetUniformLocation(mShader.Program(), "view");
-	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+	//glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(mCamera->GetViewMatrix()));
 	GLuint projectionLocation = glGetUniformLocation(mShader.Program(), "projection");
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	

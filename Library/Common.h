@@ -5,6 +5,7 @@
 #include "application/InputHandler.h"
 #include "application/GameComponent.h"
 #include "application/DrawableGameComponent.h"
+#include "application/Camera.h"
 #include "exceptions/GameException.h"
 #include "textures/Texture2D.h"
 #include <glm/glm.hpp>

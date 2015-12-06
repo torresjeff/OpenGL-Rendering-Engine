@@ -9,8 +9,8 @@
 class CameraComponent : public DrawableGameComponent
 {
 public:
-	CameraComponent();
 	CameraComponent(Application& application);
+	CameraComponent(Application& application, Camera& camera);
 
 	virtual void Initialize() override;
 	virtual void Update(float DeltaSeconds) override;

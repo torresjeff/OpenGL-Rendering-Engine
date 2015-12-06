@@ -16,7 +16,7 @@ using std::endl;
 class Application
 {
 public:
-	Application(std::string name, int WIDTH, int HEIGHT);
+	Application(std::string name, int width, int height);
 	virtual ~Application();
 
 public:
@@ -30,6 +30,8 @@ public:
 	void SetKeyCallback(GLFWkeyfun callback);
 	inline int GetWidth() { return mWidth; }
 	inline int GetHeight() { return mHeight; }
+	inline GLFWwindow* GetWindow() const { return window; }
+	float GetAspectRatio();
 protected:
 	virtual void InitializeGlfw();
 	virtual void InitializeGlew();

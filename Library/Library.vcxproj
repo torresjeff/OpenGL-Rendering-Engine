@@ -126,7 +126,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="application\Application.h" />
+    <ClInclude Include="application\Camera.h" />
     <ClInclude Include="application\DrawableGameComponent.h" />
+    <ClInclude Include="application\FirstPersonCamera.h" />
     <ClInclude Include="application\GameComponent.h" />
     <ClInclude Include="application\InputHandler.h" />
     <ClInclude Include="textures\Texture2D.h" />
@@ -136,7 +138,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="application\Application.cpp" />
+    <ClCompile Include="application\Camera.cpp" />
     <ClCompile Include="application\DrawableGameComponent.cpp" />
+    <ClCompile Include="application\FirstPersonCamera.cpp" />
     <ClCompile Include="application\GameComponent.cpp" />
     <ClCompile Include="application\InputHandler.cpp" />
     <ClCompile Include="textures\Texture2D.cpp" />

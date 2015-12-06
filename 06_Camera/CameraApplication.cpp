@@ -13,11 +13,18 @@ CameraApplication::~CameraApplication()
 	{
 		delete mCameraDemo;
 	}
+	if (mCamera)
+	{
+		delete mCamera;
+	}
 }
 
 void CameraApplication::Initialize()
 {
-	mCameraDemo = new CameraComponent(*this);
+	mCamera = new FirstPersonCamera(*this);
+	mComponents.push_back(mCamera);
+
+	mCameraDemo = new CameraComponent(*this, *mCamera);
 	mComponents.push_back(mCameraDemo);
 
 	mBackgroundColor = { 0.2f, 0.3f, 0.3f, 1.0f };
@@ -25,10 +32,10 @@ void CameraApplication::Initialize()
 	glEnable(GL_DEPTH_TEST);
 	Application::Initialize();
 
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); //if we want to hide the cursor
-	glfwSetKeyCallback(window, CameraKeyCallback);
-	glfwSetCursorPosCallback(window, MouseCallback);
-	glfwSetScrollCallback(window, ScrollCallback);
+	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); //if we want to hide the cursor
+	//glfwSetKeyCallback(window, CameraKeyCallback);
+	//glfwSetCursorPosCallback(window, MouseCallback);
+	//glfwSetScrollCallback(window, ScrollCallback);
 }
 
 void CameraApplication::Draw(float DeltaSeconds)

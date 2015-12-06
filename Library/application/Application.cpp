@@ -39,6 +39,11 @@ void Application::AddComponent(GameComponent * component)
 	mComponents.push_back(component);
 }
 
+float Application::GetAspectRatio()
+{
+	return (float)mWidth / (float)mHeight;
+}
+
 void Application::InitializeGlfw()
 {
 	if (glfwInit() == GL_FALSE)
