@@ -11,7 +11,7 @@ Camera::Camera(Application& application)
 {}
 
 Camera::Camera(Application& application, float fieldOfView, float aspectRatio, float nearPlane, float farPlane)
-	: GameComponent(application), mFieldOfView(fieldOfView), mNearPlane(nearPlane), mFarPlane(farPlane),
+	: GameComponent(application), mFieldOfView(fieldOfView), mAspectRatio(aspectRatio), mNearPlane(nearPlane), mFarPlane(farPlane),
 	mPosition(), mDirection(), mRight(), mUp(), mViewMatrix(), mProjectionMatrix()
 {}
 
@@ -32,9 +32,9 @@ void Camera::Update(float DeltaSeconds)
 
 void Camera::Reset()
 {
-	mPosition = glm::vec3(0.0f);
-	mDirection = glm::vec3(0.0f, 0.0f, -1.0f); // When we start we're looking down the -Z axis
-	mRight = glm::vec3(1.0f, 0.0f, 0.0f);
+	mPosition = glm::vec3(0.0f); // We start at the origin of the world
+	mDirection = glm::vec3(0.0f, 0.0f, -1.0f); // We start looking down the -Z axis
+	mRight = glm::vec3(1.0f, 0.0f, 0.0f); 
 	mUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	UpdateViewMatrix();
@@ -57,6 +57,7 @@ void Camera::ApplyRotation(const glm::mat4& transform)
 	glm::vec4 direction = transform * glm::vec4(mDirection, 0.0f);
 	mDirection = (glm::vec3)glm::normalize(direction);
 
+	// Whenever the homogeneous coordinate (w, 4th element of a vec4) is equal to 0 the vector is specifically known as a direction vector since a vector with a w coordinate of 0 cannot be translated.
 	glm::vec4 up = transform * glm::vec4(mUp, 0.0f);
 	mUp = (glm::vec3)glm::normalize(up);
 

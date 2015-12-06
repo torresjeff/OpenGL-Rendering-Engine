@@ -45,11 +45,6 @@ void FirstPersonCamera::Update(float DeltaSeconds)
 		movementAmount.x = 1.0f;
 	}
 
-	if (glfwGetKey(window, GLFW_MOD_SHIFT))
-	{
-		movementAmount *= 50.0f;
-	}
-
 	double x, y;
 	glfwGetCursorPos(window, &x, &y);
 
