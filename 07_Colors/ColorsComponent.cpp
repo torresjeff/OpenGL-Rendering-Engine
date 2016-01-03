@@ -114,11 +114,11 @@ void ColorsComponent::Draw(float DeltaSeconds)
 	model = glm::rotate(model, glm::radians(60.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 	
-	GLuint modelLocation = glGetUniformLocation(mContainerShader.Program(), "model");
-	GLuint viewLocation = glGetUniformLocation(mContainerShader.Program(), "view");
-	GLuint projectionLocation = glGetUniformLocation(mContainerShader.Program(), "projection");
-	GLuint objectColorLocation = glGetUniformLocation(mContainerShader.Program(), "objectColor");
-	GLuint lightColorLocation = glGetUniformLocation(mContainerShader.Program(), "lightColor");
+	GLint modelLocation = glGetUniformLocation(mContainerShader.Program(), "model");
+	GLint viewLocation = glGetUniformLocation(mContainerShader.Program(), "view");
+	GLint projectionLocation = glGetUniformLocation(mContainerShader.Program(), "projection");
+	GLint objectColorLocation = glGetUniformLocation(mContainerShader.Program(), "objectColor");
+	GLint lightColorLocation = glGetUniformLocation(mContainerShader.Program(), "lightColor");
 
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(mCamera->GetViewMatrix()));

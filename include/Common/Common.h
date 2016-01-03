@@ -2,6 +2,7 @@
 
 #include "shaders/shader.h"
 #include "application/Application.h"
+#include "application/FirstPersonApplication.h"
 #include "application/InputHandler.h"
 #include "application/GameComponent.h"
 #include "application/DrawableGameComponent.h"

@@ -11,7 +11,7 @@ int main()
 	}
 	catch (const GameException& exception)
 	{
-		cout << exception.what() << "\n";
+		std::cerr << exception.what() << "\n";
 	}
 
 	return 0;

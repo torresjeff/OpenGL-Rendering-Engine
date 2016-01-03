@@ -26,7 +26,7 @@ void FirstPersonCamera::Update(float DeltaSeconds)
 	cout << "FPSCam Update: direction=" << mDirection.x << " " << mDirection.y << " " << mDirection.z << "\n";*/
 	GLFWwindow* window = mApplication->GetWindow();
 	
-	glm::vec2 movementAmount;
+	glm::vec3 movementAmount;
 
 	if (glfwGetKey(window, GLFW_KEY_W))
 	{
@@ -43,6 +43,14 @@ void FirstPersonCamera::Update(float DeltaSeconds)
 	if (glfwGetKey(window, GLFW_KEY_D))
 	{
 		movementAmount.x = 1.0f;
+	}
+	if (glfwGetKey(window, GLFW_KEY_E))
+	{
+		movementAmount.z = 1.0f;
+	}
+	if (glfwGetKey(window, GLFW_KEY_Q))
+	{
+		movementAmount.z = -1.0f;
 	}
 
 	double x, y;
@@ -66,11 +74,13 @@ void FirstPersonCamera::Update(float DeltaSeconds)
 
 	ApplyRotation(transform);
 
-	glm::vec2 movement = movementAmount * mSpeed * DeltaSeconds;
+	glm::vec3 movement = movementAmount * mSpeed * DeltaSeconds;
 	glm::vec3 strafe = mRight * movement.x;
 	mPosition += strafe;
 	glm::vec3 forward = mDirection * movement.y; 
 	mPosition += forward;
+	glm::vec3 vertical = glm::vec3(0.0f, 1.0f, 0.0f) * movement.z;
+	mPosition += vertical;
 
 	Camera::Update(DeltaSeconds);
 }

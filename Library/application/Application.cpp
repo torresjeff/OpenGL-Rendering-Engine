@@ -60,7 +60,9 @@ void Application::InitializeGlfw()
 		glfwTerminate();
 		return;
 	}
-
+	
+	//TODO: see documentation to get screen resolution at runtime
+	glfwSetWindowPos(window, (1920 - mWidth) / 2, (1080 - mHeight) / 2);
 	glfwSetKeyCallback(window, &Application::key_callback);
 	glfwSetWindowSizeCallback(window, &Application::WindowResizeCallback);
 	glfwMakeContextCurrent(window);
