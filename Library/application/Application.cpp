@@ -34,7 +34,7 @@ void Application::Draw(float DeltaSeconds)
 	}
 }
 
-void Application::AddComponent(GameComponent * component)
+void Application::AddComponent(GameComponent* component)
 {
 	mComponents.push_back(component);
 }

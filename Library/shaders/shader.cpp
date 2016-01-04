@@ -14,6 +14,7 @@ using std::endl;
 		}
 
 Shader::Shader()
+	: mProgram(0)
 {}
 
 Shader::Shader(std::string vertexShaderPath, std::string fragmentShaderPath)

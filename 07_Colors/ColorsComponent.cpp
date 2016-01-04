@@ -21,7 +21,7 @@ void ColorsComponent::Initialize()
 		-0.5f, -0.5f, 0.5f,		 0.0f, 0.0f,   // Bottom Left = 2
 		-0.5f,  0.5f, 0.5f,		 0.0f, 1.0f,    // Top Left = 3
 
-												//BACK FACE
+		//BACK FACE
 		0.5f,  0.5f, -0.5f,		 1.0f, 1.0f,   // Top Right = 0
 		0.5f, -0.5f, -0.5f,		 1.0f, 0.0f,   // Bottom Right = 1
 		-0.5f, -0.5f, -0.5f,	 0.0f, 0.0f,   // Bottom Left = 2
@@ -29,7 +29,7 @@ void ColorsComponent::Initialize()
 		-0.5f, -0.5f, -0.5f,	 0.0f, 0.0f,   // Bottom Left = 2
 		-0.5f,  0.5f, -0.5f,	 0.0f, 1.0f,    // Top Left = 3
 
-												//RIGHT FACE
+		//RIGHT FACE
 		0.5f,  0.5f, -0.5f,		 1.0f, 1.0f,
 		0.5f, -0.5f, -0.5f,		 1.0f, 0.0f,
 		0.5f, -0.5f, 0.5f,		 0.0f, 0.0f,

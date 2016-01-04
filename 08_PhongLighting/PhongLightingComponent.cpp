@@ -124,7 +124,7 @@ void PhongLightingComponent::Draw(float DeltaSeconds)
 	float movementY = 8 * sin(time);
 
 	mLightTransform = glm::translate(glm::mat4(), glm::vec3(movementX, 3.0f, movementY));
-	lightPosition = glm::vec3(movementX, 2.0f, movementY);*/
+	lightPosition = glm::vec3(movementX, 4.0f, movementY);*/
 
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(mContainerTransform));
 	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(mCamera->GetViewMatrix()));

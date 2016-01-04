@@ -4,6 +4,8 @@ DrawableGameComponent::DrawableGameComponent()
 	: GameComponent(), mVisible(true), mCamera(nullptr)
 {}
 
+
+
 DrawableGameComponent::DrawableGameComponent(Application & application)
 	: GameComponent(application), mVisible(true), mCamera(nullptr)
 {}

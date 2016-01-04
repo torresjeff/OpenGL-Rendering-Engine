@@ -36,7 +36,7 @@ void main()
 	{
 		specularPower = 0.5f;
 	}
-	vec3 specular = shininess * specularPower * lightColor;
+	vec3 specular = shininess * specularPower * lightColor; //We could remove the specularPower variable, but all 
 
 	//Final color
 	color = vec4(objectColor * (ambient + diffuse + specular), 1.0f);

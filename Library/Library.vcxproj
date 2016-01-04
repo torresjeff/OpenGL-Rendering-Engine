@@ -132,10 +132,16 @@
     <ClInclude Include="application\FirstPersonCamera.h" />
     <ClInclude Include="application\GameComponent.h" />
     <ClInclude Include="application\InputHandler.h" />
+    <ClInclude Include="application\MeshComponent.h" />
+    <ClInclude Include="application\ModelComponent.h" />
+    <ClInclude Include="textures\Texture.h" />
     <ClInclude Include="textures\Texture2D.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="exceptions\GameException.h" />
     <ClInclude Include="shaders\shader.h" />
+    <ClInclude Include="textures\TextureType.h" />
+    <ClInclude Include="vertices\Vertex_PN.h" />
+    <ClInclude Include="vertices\Vertex_PNT.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="application\Application.cpp" />
@@ -145,6 +151,8 @@
     <ClCompile Include="application\FirstPersonCamera.cpp" />
     <ClCompile Include="application\GameComponent.cpp" />
     <ClCompile Include="application\InputHandler.cpp" />
+    <ClCompile Include="application\MeshComponent.cpp" />
+    <ClCompile Include="application\ModelComponent.cpp" />
     <ClCompile Include="textures\Texture2D.cpp" />
     <ClCompile Include="exceptions\GameException.cpp" />
     <ClCompile Include="shaders\shader.cpp" />

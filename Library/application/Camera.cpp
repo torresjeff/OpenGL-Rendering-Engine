@@ -32,7 +32,7 @@ void Camera::Update(float DeltaSeconds)
 
 void Camera::Reset()
 {
-	mPosition = glm::vec3(0.0f); // We start at the origin of the world
+	mPosition = glm::vec3(0.0f, 0.0f, 2.0f); // We start at the origin of the world
 	mDirection = glm::vec3(0.0f, 0.0f, -1.0f); // We start looking down the -Z axis
 	mRight = glm::vec3(1.0f, 0.0f, 0.0f); 
 	mUp = glm::vec3(0.0f, 1.0f, 0.0f);

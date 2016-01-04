@@ -48,6 +48,24 @@
     <ClInclude Include="application\FirstPersonApplication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="application\MeshComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="textures\TextureType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="textures\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vertices\Vertex_PNT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vertices\Vertex_PN.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="application\ModelComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shaders\shader.cpp">
@@ -78,6 +96,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="application\FirstPersonApplication.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="application\MeshComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="application\ModelComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

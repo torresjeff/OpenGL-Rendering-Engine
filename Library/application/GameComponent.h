@@ -1,6 +1,7 @@
 #pragma once
 
 class Application;
+//#include "Application.h"
 
 class GameComponent
 {
