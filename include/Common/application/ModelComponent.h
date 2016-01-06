@@ -18,12 +18,13 @@ private:
 	void LoadModel(const std::string& path);
 	void ProcessNode(aiNode* node, const aiScene* scene);
 	MeshComponent ProcessMesh(aiMesh* mesh, const aiScene* scene);
-	std::vector<Texture> LoadMaterialTextures(aiMaterial* material, aiTextureType type);
-	GLuint LoadTextureFromFile(const char* name, std::string directory);
+	std::vector<Texture> LoadMaterialTextures(aiMaterial* material, aiTextureType type, std::string typeName);
+	GLuint LoadTextureFromFile(const char* path, std::string directory);
 	bool IsTextureLoaded(std::string path, int* index);
 
-	std::string mDirectory;
-	std::vector<MeshComponent> mMeshes;
-	std::vector<Texture> mLoadedTextures;
+	/*  Model Data  */
+	std::vector<MeshComponent> meshes;
+	std::string directory;
+	std::vector<Texture> textures_loaded;
 	Shader mShader;
 };
