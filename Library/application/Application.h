@@ -7,8 +7,10 @@
 #include <vector>
 #include "../exceptions/GameException.h"
 #include "InputHandler.h"
-#include "GameComponent.h"
-#include "DrawableGameComponent.h"
+//#include "GameComponent.h"
+//#include "DrawableGameComponent.h"
+
+class GameComponent;
 
 using std::cout;
 using std::endl;

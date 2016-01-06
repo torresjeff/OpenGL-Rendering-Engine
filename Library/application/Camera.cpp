@@ -28,6 +28,8 @@ void Camera::Initialize()
 void Camera::Update(float DeltaSeconds)
 {
 	UpdateViewMatrix();
+	/*std::cout << "Camera position = (" << mPosition.x << ", " << mPosition.y << ", " << mPosition.z << ")\n";
+	std::cout << "Camera direction = (" << mDirection.x << ", " << mDirection.y << ", " << mDirection.z << ")\n";*/
 }
 
 void Camera::Reset()
@@ -61,7 +63,7 @@ void Camera::ApplyRotation(const glm::mat4& transform)
 	mUp = (glm::vec3)glm::normalize(up);
 
 	mRight = glm::cross(mDirection, mUp); // Calculate the new right vector
-	mUp = glm::cross(mRight, mDirection); 
+	mUp = glm::cross(mRight, mDirection);  //Calculate new up vector
 }
 
 glm::mat4 Camera::GetViewMatrix()

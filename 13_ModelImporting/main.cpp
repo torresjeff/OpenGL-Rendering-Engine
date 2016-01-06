@@ -3,7 +3,7 @@
 
 int main()
 {
-	std::unique_ptr<ModelImportingApplication> application(new ModelImportingApplication("Phong Lighting Model", 800, 600));
+	std::unique_ptr<ModelImportingApplication> application(new ModelImportingApplication("Model Importing", 800, 600));
 
 	try
 	{

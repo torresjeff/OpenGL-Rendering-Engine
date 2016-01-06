@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Common/Common.h>
-#include "ModelImportingComponent.h"
 
 
 class ModelImportingApplication : public FirstPersonApplication
@@ -12,5 +11,5 @@ public:
 
 	virtual void Initialize() override;
 private:
-	ModelImportingComponent* mLightMapsComponent;
+	ModelComponent* mModelComponent;
 };

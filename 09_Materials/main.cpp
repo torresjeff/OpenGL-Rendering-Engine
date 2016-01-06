@@ -3,7 +3,7 @@
 
 int main()
 {
-	std::unique_ptr<MaterialsApplication> application(new MaterialsApplication("Phong Lighting Model", 800, 600));
+	std::unique_ptr<MaterialsApplication> application(new MaterialsApplication("Materials", 800, 600));
 
 	try
 	{

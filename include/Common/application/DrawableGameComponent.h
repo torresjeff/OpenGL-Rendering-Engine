@@ -1,8 +1,9 @@
 #pragma once
 
 #include "GameComponent.h"
-
-class Camera;
+#include "Camera.h"
+//
+//class Camera;
 
 class DrawableGameComponent : public GameComponent
 {

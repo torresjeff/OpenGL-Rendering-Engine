@@ -7,5 +7,6 @@ struct Texture
 {
 	GLuint id;
 	TextureType type;
+	std::string path;
 };
 

@@ -150,23 +150,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Image Include="res\diffuseMap.bmp" />
-    <Image Include="res\specularMap.bmp" />
+    <Image Include="res\arm_dif.png" />
+    <Image Include="res\arm_showroom_ddn.png" />
+    <Image Include="res\arm_showroom_spec.png" />
+    <Image Include="res\body_dif.png" />
+    <Image Include="res\body_showroom_ddn.png" />
+    <Image Include="res\body_showroom_spec.png" />
+    <Image Include="res\glass_ddn.png" />
+    <Image Include="res\glass_dif.png" />
+    <Image Include="res\hand_dif.png" />
+    <Image Include="res\hand_showroom_ddn.png" />
+    <Image Include="res\hand_showroom_spec.png" />
+    <Image Include="res\helmet_diff.png" />
+    <Image Include="res\helmet_showroom_ddn.png" />
+    <Image Include="res\helmet_showroom_spec.png" />
+    <Image Include="res\leg_dif.png" />
+    <Image Include="res\leg_showroom_ddn.png" />
+    <Image Include="res\leg_showroom_spec.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\container.frag" />
-    <None Include="shaders\container.vert" />
-    <None Include="shaders\light.frag" />
-    <None Include="shaders\light.vert" />
+    <None Include="res\nanosuit.mtl" />
+    <None Include="shaders\model.frag" />
+    <None Include="shaders\model.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelImportingApplication.cpp" />
-    <ClCompile Include="ModelImportingComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModelImportingApplication.h" />
-    <ClInclude Include="ModelImportingComponent.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\nanosuit.obj">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

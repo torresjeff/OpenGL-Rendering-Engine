@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include "..\utils\Logger.h"
 using std::cout;
 using std::endl;
 
@@ -65,6 +66,8 @@ Shader::Shader(std::string vertexShaderPath, std::string fragmentShaderPath)
 	//We no longer need the shaders because they are now linked to the program.
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
+
+	Logger::LogProgramInfo(mProgram);
 }
 
 void Shader::ReadShaderFromFile(std::string shaderPath, std::vector<char>& shaderSource)
@@ -92,5 +95,12 @@ void Shader::ReadShaderFromFile(std::string shaderPath, std::vector<char>& shade
 
 void Shader::UseProgram()
 {
+	int params = -1;
+	glValidateProgram(mProgram);
+	glGetProgramiv(mProgram, GL_VALIDATE_STATUS, &params);
+	if (params != GL_TRUE)
+	{
+		Logger::LogValidateError(mProgram);
+	}
 	glUseProgram(mProgram);
 }

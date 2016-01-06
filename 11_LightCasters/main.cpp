@@ -3,7 +3,7 @@
 
 int main()
 {
-	std::unique_ptr<LightCastersApplication> application(new LightCastersApplication("Phong Lighting Model", 800, 600));
+	std::unique_ptr<LightCastersApplication> application(new LightCastersApplication("Light Casters", 800, 600));
 
 	try
 	{

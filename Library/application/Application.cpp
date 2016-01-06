@@ -1,9 +1,12 @@
 #include "Application.h"
+#include "GameComponent.h"
+#include "DrawableGameComponent.h"
+#include "..\utils\Logger.h"
 
 Application::Application(std::string name, int width, int height)
+	: mName(name), mWidth(width), mHeight(height)
 {
-	this->mWidth = width;
-	this->mHeight = height;
+	Logger::RestartGlLog();
 }
 
 Application::~Application()
@@ -24,7 +27,7 @@ void Application::Update(float DeltaSeconds)
 
 void Application::Draw(float DeltaSeconds)
 {
-	for (auto component : mComponents)
+	for (auto& component : mComponents)
 	{
 		DrawableGameComponent* drawableComponent = dynamic_cast<DrawableGameComponent*>(component);
 		if (drawableComponent != nullptr && drawableComponent->IsVisible())

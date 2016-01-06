@@ -1,7 +1,7 @@
 #pragma once
 
-class Application;
-//#include "Application.h"
+#include "Application.h"
+//class Application;
 
 class GameComponent
 {

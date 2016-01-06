@@ -140,6 +140,7 @@
     <ClInclude Include="exceptions\GameException.h" />
     <ClInclude Include="shaders\shader.h" />
     <ClInclude Include="textures\TextureType.h" />
+    <ClInclude Include="utils\Logger.h" />
     <ClInclude Include="vertices\Vertex_PN.h" />
     <ClInclude Include="vertices\Vertex_PNT.h" />
   </ItemGroup>
@@ -156,6 +157,7 @@
     <ClCompile Include="textures\Texture2D.cpp" />
     <ClCompile Include="exceptions\GameException.cpp" />
     <ClCompile Include="shaders\shader.cpp" />
+    <ClCompile Include="utils\Logger.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
