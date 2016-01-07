@@ -1,10 +1,10 @@
-#include "MultipleLightsComponent.h"
+#include "StencilTestingComponent.h"
 
-MultipleLightsComponent::MultipleLightsComponent(Application& application, Camera& camera)
+StencilTestingComponent::StencilTestingComponent(Application& application, Camera& camera)
 	: DrawableGameComponent(application, camera)
 {}
 
-void MultipleLightsComponent::Initialize()
+void StencilTestingComponent::Initialize()
 {
 	mVertices =
 	{
@@ -135,9 +135,10 @@ void MultipleLightsComponent::Initialize()
 
 	mShaderContainer = Shader("shaders/container.vert", "shaders/container.frag");
 	mShaderLight = Shader("shaders/light.vert", "shaders/light.frag");
+	mShaderBorder = Shader("shaders/container.vert", "shaders/border.frag");
 }
 
-void MultipleLightsComponent::Draw(float DeltaSeconds)
+void StencilTestingComponent::Draw(float DeltaSeconds)
 {
 	mShaderContainer.UseProgram();
 	glBindVertexArray(mVAO);
@@ -169,8 +170,10 @@ void MultipleLightsComponent::Draw(float DeltaSeconds)
 		return;
 	}
 
-	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(mCamera->GetViewMatrix()));
-	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(mCamera->GetProjectionMatrix()));
+	glm::mat4 viewMatrix = mCamera->GetViewMatrix();
+	glm::mat4 projectionMatrix = mCamera->GetProjectionMatrix();
+	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
 	//TODO: look for steel propoerties for the steel borders (shininess)
 	// MATERIAL PROPERTIES
@@ -241,17 +244,45 @@ void MultipleLightsComponent::Draw(float DeltaSeconds)
 	glUniform3f(lightSpecularLocation, 1.0f, 1.0f, 1.0f);
 
 
+	glStencilFunc(GL_ALWAYS, 1, 0xFF);
+	glStencilMask(0xFF);
+
 	for (size_t i = 0; i < mCubePositions.size(); ++i)
 	{
 		glm::mat4 model;
-		model = glm::translate(glm::mat4(), mCubePositions[i]);
 		float angle = 20.0f * i;
-		model = glm::rotate(model, glm::radians(angle), glm::vec3(0.2f, 0.5f, 0.5f));
+		model = glm::translate(glm::mat4(), mCubePositions[i]);
+		//model = glm::rotate(model, glm::radians(angle), glm::vec3(0.2f, 0.5f, 0.5f));
 
 		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}
 
+	glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+	glStencilMask(0x00);
+	//glDisable(GL_DEPTH_TEST);
+
+	mShaderBorder.UseProgram();
+	modelLocation = glGetUniformLocation(mShaderBorder.Program(), "model");
+	viewLocation = glGetUniformLocation(mShaderBorder.Program(), "view");
+	projectionLocation = glGetUniformLocation(mShaderBorder.Program(), "projection");
+	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+
+	for (size_t i = 0; i < mCubePositions.size(); ++i)
+	{
+		glm::mat4 model;
+		float angle = 20.0f * i;
+		model = glm::translate(glm::mat4(), mCubePositions[i]);
+		//model = glm::rotate(model, glm::radians(angle), glm::vec3(0.2f, 0.5f, 0.5f));
+		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+	}
+	glStencilMask(0xFF);
+	//glEnable(GL_DEPTH_TEST);
+
+	//glStencilMask(0x00);
 	mShaderLight.UseProgram();
 	//Set up uniforms
 	modelLocation = glGetUniformLocation(mShaderLight.Program(), "model");
@@ -275,14 +306,14 @@ void MultipleLightsComponent::Draw(float DeltaSeconds)
 		return;
 	}
 
-	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(mCamera->GetViewMatrix()));
-	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(mCamera->GetProjectionMatrix()));
+	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
-	for (int i = 0; i < mPointLightPositions.size(); ++i)
+	/*for (int i = 0; i < mPointLightPositions.size(); ++i)
 	{
 		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(glm::translate(glm::mat4(), mPointLightPositions[i])));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-	}
+	}*/
 
 	glUseProgram(0);
 	glBindVertexArray(0);

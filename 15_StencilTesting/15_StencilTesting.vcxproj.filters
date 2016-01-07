@@ -27,23 +27,24 @@
     <None Include="shaders\container.vert" />
     <None Include="shaders\light.frag" />
     <None Include="shaders\light.vert" />
+    <None Include="shaders\border.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DepthTestingApplication.cpp">
+    <ClCompile Include="StencilTestingApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DepthTestingComponent.cpp">
+    <ClCompile Include="StencilTestingComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DepthTestingApplication.h">
+    <ClInclude Include="StencilTestingApplication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DepthTestingComponent.h">
+    <ClInclude Include="StencilTestingComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

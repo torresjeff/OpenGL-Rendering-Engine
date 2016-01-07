@@ -2,15 +2,15 @@
 
 #include <Common/Common.h>
 
-class MultipleLightsComponent : public DrawableGameComponent
+class StencilTestingComponent : public DrawableGameComponent
 {
 public:
-	MultipleLightsComponent(Application& application, Camera& camera);
+	StencilTestingComponent(Application& application, Camera& camera);
 
 	virtual void Initialize() override;
 	virtual void Draw(float DeltaSeconds) override;
 private:
-	Shader mShaderContainer, mShaderLight;
+	Shader mShaderContainer, mShaderLight, mShaderBorder;
 	GLuint mVAO, mVBO;
 	std::vector<GLfloat> mVertices;
 	GLuint mTextureDiffuse, mTextureSpecular;

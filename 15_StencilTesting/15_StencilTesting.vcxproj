@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{D5D94A7E-61CB-4269-B072-D6EAE45B547C}</ProjectGuid>
+    <ProjectGuid>{35194336-F3C3-4D44-A75F-08EEB65F5488}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>My14_DepthTesting</RootNamespace>
+    <RootNamespace>My15_StencilTesting</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -154,6 +154,7 @@
     <Image Include="res\specularMap.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shaders\border.frag" />
     <None Include="shaders\container.frag" />
     <None Include="shaders\container.vert" />
     <None Include="shaders\light.frag" />
@@ -161,12 +162,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="DepthTestingApplication.cpp" />
-    <ClCompile Include="DepthTestingComponent.cpp" />
+    <ClCompile Include="StencilTestingApplication.cpp" />
+    <ClCompile Include="StencilTestingComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DepthTestingApplication.h" />
-    <ClInclude Include="DepthTestingComponent.h" />
+    <ClInclude Include="StencilTestingApplication.h" />
+    <ClInclude Include="StencilTestingComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

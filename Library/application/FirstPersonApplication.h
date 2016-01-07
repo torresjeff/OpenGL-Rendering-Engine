@@ -12,6 +12,6 @@ public:
 	virtual void Initialize() override;
 	virtual void Draw(float DeltaSeconds) override;
 protected:
-	std::vector<GLfloat> mBackgroundColor{ 0.2f, 0.3f, 0.3f, 1.0f };
+	std::vector<GLfloat> mBackgroundColor{ 0.5f, 0.5f, 0.5f, 1.0f };
 	FirstPersonCamera* mCamera;
 };

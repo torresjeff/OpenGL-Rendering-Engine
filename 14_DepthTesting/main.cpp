@@ -1,9 +1,9 @@
-#include "MultipleLightsApplication.h"
+#include "DepthTestingApplication.h"
 #include <memory>
 
 int main()
 {
-	std::unique_ptr<MultipleLightsApplication> application(new MultipleLightsApplication("Depth Testing", 800, 600));
+	std::unique_ptr<DepthTestingApplication> application(new DepthTestingApplication("Depth Testing", 800, 600));
 
 	try
 	{
