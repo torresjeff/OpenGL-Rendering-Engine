@@ -37,6 +37,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "13B_ModelImporting", "13B_M
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "15_StencilTesting", "15_StencilTesting\15_StencilTesting.vcxproj", "{35194336-F3C3-4D44-A75F-08EEB65F5488}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "16_Blending", "16_Blending\16_Blending.vcxproj", "{129DFF4D-33E5-4E89-B27A-7182EB0EE99D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -181,6 +183,14 @@ Global
 		{35194336-F3C3-4D44-A75F-08EEB65F5488}.Release|x64.Build.0 = Release|x64
 		{35194336-F3C3-4D44-A75F-08EEB65F5488}.Release|x86.ActiveCfg = Release|Win32
 		{35194336-F3C3-4D44-A75F-08EEB65F5488}.Release|x86.Build.0 = Release|Win32
+		{129DFF4D-33E5-4E89-B27A-7182EB0EE99D}.Debug|x64.ActiveCfg = Debug|x64
+		{129DFF4D-33E5-4E89-B27A-7182EB0EE99D}.Debug|x64.Build.0 = Debug|x64
+		{129DFF4D-33E5-4E89-B27A-7182EB0EE99D}.Debug|x86.ActiveCfg = Debug|Win32
+		{129DFF4D-33E5-4E89-B27A-7182EB0EE99D}.Debug|x86.Build.0 = Debug|Win32
+		{129DFF4D-33E5-4E89-B27A-7182EB0EE99D}.Release|x64.ActiveCfg = Release|x64
+		{129DFF4D-33E5-4E89-B27A-7182EB0EE99D}.Release|x64.Build.0 = Release|x64
+		{129DFF4D-33E5-4E89-B27A-7182EB0EE99D}.Release|x86.ActiveCfg = Release|Win32
+		{129DFF4D-33E5-4E89-B27A-7182EB0EE99D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

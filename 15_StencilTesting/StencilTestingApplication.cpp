@@ -27,8 +27,7 @@ void StencilTestingApplication::Initialize()
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_STENCIL_TEST);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-
+	
 	//The mask specified is ANDed with the stencil value about to be written to the buffer.
 	//glStencilMask(0xFF); //Each bit is written to the stencil buffer as is. 
 	//glStencilMask(0x00); //Each bit ends up as 0 in the stencil buffer (disables writing).  Equivalent to glDepthMask(GL_FALSE).
@@ -48,6 +47,8 @@ void StencilTestingApplication::Initialize()
 	// 3rd parameter: dppas. Action to take if both the stencil and depth test pass.
 	// Possible values are: GL_KEEP (the currently stored value is kept), GL_REPLACE (the stencil value is replaced with the reference value set with glStencilFunc(.., ref, ..)
 	//glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP); //default values. Does not update the stencil value.
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+
 	Application::Initialize();
 }
 
