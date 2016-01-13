@@ -1,9 +1,9 @@
-#include "FaceCullingApplication.h"
+#include "FramebuffersApplication.h"
 #include <memory>
 
 int main()
 {
-	std::unique_ptr<FaceCullingApplication> application(new FaceCullingApplication("Face Culling", 800, 600));
+	std::unique_ptr<FramebuffersApplication> application(new FramebuffersApplication("Frambuffers", 800, 600));
 
 	try
 	{
