@@ -1,6 +1,6 @@
 #include "CubemapComponent.h"
 
-
+//To learn about copying buffers see: http://www.learnopengl.com/#!Advanced-OpenGL/Advanced-Data
 
 CubemapComponent::CubemapComponent(Application& application, Camera& camera)
 	: DrawableGameComponent(application, camera)
@@ -9,49 +9,139 @@ CubemapComponent::CubemapComponent(Application& application, Camera& camera)
 void CubemapComponent::Initialize()
 {
 	// Vertices defined in counter-clockwise winding order.
-	mContainerVertices =
+	mContainerVerticesPositions =
 	{
-		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,	0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,	1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,	1.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,	1.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,	0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,	0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,	
+		0.5f, -0.5f, -0.5f,		
+		0.5f,  0.5f, -0.5f,		
+		0.5f,  0.5f, -0.5f,		
+		-0.5f,  0.5f, -0.5f,	
+		-0.5f, -0.5f, -0.5f,	
 
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,	0.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,		1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,		1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,		1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,	0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,	0.0f, 0.0f,
+		-0.5f, -0.5f,  0.5f,	
+		0.5f, -0.5f,  0.5f,		
+		0.5f,  0.5f,  0.5f,		
+		0.5f,  0.5f,  0.5f,		
+		-0.5f,  0.5f,  0.5f,	
+		-0.5f, -0.5f,  0.5f,	
 
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,	0.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,	1.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,	1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,	1.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,	0.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,	0.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,	
+		-0.5f,  0.5f, -0.5f,	
+		-0.5f, -0.5f, -0.5f,	
+		-0.5f, -0.5f, -0.5f,	
+		-0.5f, -0.5f,  0.5f,	
+		-0.5f,  0.5f,  0.5f,	
 
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,	0.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,	1.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,	1.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,	1.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,	0.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,	0.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,		
+		0.5f,  0.5f, -0.5f,		
+		0.5f, -0.5f, -0.5f,		
+		0.5f, -0.5f, -0.5f,		
+		0.5f, -0.5f,  0.5f,		
+		0.5f,  0.5f,  0.5f,		
 
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,	0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,	1.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,	1.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,	1.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,	0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,	0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,	
+		0.5f, -0.5f, -0.5f,		
+		0.5f, -0.5f,  0.5f,		
+		0.5f, -0.5f,  0.5f,		
+		-0.5f, -0.5f,  0.5f,	
+		-0.5f, -0.5f, -0.5f,	
 
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,	0.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,	1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,	1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,	1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,	0.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,	0.0f, 0.0f
+		-0.5f,  0.5f, -0.5f,	
+		0.5f,  0.5f, -0.5f,		
+		0.5f,  0.5f,  0.5f,		
+		0.5f,  0.5f,  0.5f,		
+		-0.5f,  0.5f,  0.5f,	
+		-0.5f,  0.5f, -0.5f	
+	};
+
+	mContainerVerticesNormals =
+	{
+		0.0f,  0.0f, -1.0f,
+		0.0f,  0.0f, -1.0f,
+		0.0f,  0.0f, -1.0f,
+		0.0f,  0.0f, -1.0f,
+		0.0f,  0.0f, -1.0f,
+		0.0f,  0.0f, -1.0f,
+
+		0.0f,  0.0f, 1.0f,
+		0.0f,  0.0f, 1.0f,
+		0.0f,  0.0f, 1.0f,
+		0.0f,  0.0f, 1.0f,
+		0.0f,  0.0f, 1.0f,
+		0.0f,  0.0f, 1.0f,
+
+		-1.0f,  0.0f,  0.0f,
+		-1.0f,  0.0f,  0.0f,
+		-1.0f,  0.0f,  0.0f,
+		-1.0f,  0.0f,  0.0f,
+		-1.0f,  0.0f,  0.0f,
+		-1.0f,  0.0f,  0.0f,
+
+		1.0f,  0.0f,  0.0f,
+		1.0f,  0.0f,  0.0f,
+		1.0f,  0.0f,  0.0f,
+		1.0f,  0.0f,  0.0f,
+		1.0f,  0.0f,  0.0f,
+		1.0f,  0.0f,  0.0f,
+
+		0.0f, -1.0f,  0.0f,
+		0.0f, -1.0f,  0.0f,
+		0.0f, -1.0f,  0.0f,
+		0.0f, -1.0f,  0.0f,
+		0.0f, -1.0f,  0.0f,
+		0.0f, -1.0f,  0.0f,
+
+		0.0f,  1.0f,  0.0f,
+		0.0f,  1.0f,  0.0f,
+		0.0f,  1.0f,  0.0f,
+		0.0f,  1.0f,  0.0f,
+		0.0f,  1.0f,  0.0f,
+		0.0f,  1.0f,  0.0f
+	};
+
+	mContainerVerticesTexCoords =
+	{
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f
 	};
 
 	mCubePositions =
@@ -171,13 +261,23 @@ void CubemapComponent::Initialize()
 	//Bind VAO and buffers, and fill in buffer data
 	glBindVertexArray(mContainerVAO);
 	glBindBuffer(GL_ARRAY_BUFFER, mContainerVBO);
-	glBufferData(GL_ARRAY_BUFFER, mContainerVertices.size() * sizeof(GLfloat), &mContainerVertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER,
+		mContainerVerticesPositions.size() * sizeof(GLfloat) + mContainerVerticesNormals.size() * sizeof(GLfloat) + mContainerVerticesTexCoords.size() * sizeof(GLfloat),
+		NULL,
+		GL_STATIC_DRAW); // Create the buffer large enough to hold all the information, but don't fill it yet. Just allocate the memory.
+
+	//Fill it by batches. Instead of the interleaved way we were doing before (123123123) now we're doing it by batches (111222333)
+	glBufferSubData(GL_ARRAY_BUFFER, 0, mContainerVerticesPositions.size() * sizeof(GLfloat), &mContainerVerticesPositions[0]);
+	glBufferSubData(GL_ARRAY_BUFFER, mContainerVerticesPositions.size() * sizeof(GLfloat), mContainerVerticesNormals.size() * sizeof(GLfloat), &mContainerVerticesNormals[0]);
+	glBufferSubData(GL_ARRAY_BUFFER, mContainerVerticesPositions.size() * sizeof(GLfloat) + mContainerVerticesNormals.size() * sizeof(GLfloat), mContainerVerticesTexCoords.size() * sizeof(GLfloat), &mContainerVerticesTexCoords[0]);
+
+	//Now STRIDE is zero, because the next component of the same type is tightly packed. There is no interleaved data.
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+	glEnableVertexAttribArray(1);					
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(mContainerVerticesPositions.size() * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);					
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(mContainerVerticesPositions.size() * sizeof(GLfloat) + mContainerVerticesNormals.size() * sizeof(GLfloat)));
 	
 	
 	glActiveTexture(GL_TEXTURE0);

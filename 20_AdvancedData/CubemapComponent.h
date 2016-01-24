@@ -12,7 +12,7 @@ public:
 private:
 	Shader mShaderContainer, mShaderCubemap;
 	GLuint mContainerVAO, mContainerVBO, mCubemap, mCubemapVAO, mCubemapVBO;
-	std::vector<GLfloat> mContainerVertices, mSkyboxVertices;
+	std::vector<GLfloat> mContainerVerticesPositions, mContainerVerticesNormals, mContainerVerticesTexCoords, mSkyboxVertices;
 	std::vector<char*> mTextureNames;
 	GLuint mTextureDiffuse, mTextureSpecular;
 	std::vector<glm::vec3> mCubePositions;
