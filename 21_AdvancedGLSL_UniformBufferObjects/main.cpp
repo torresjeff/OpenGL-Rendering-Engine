@@ -1,9 +1,9 @@
-#include "AdvancedDataApplication.h"
+#include "UniformBlockApplication.h"
 #include <memory>
 
 int main()
 {
-	std::unique_ptr<AdvancedDataApplication> application(new AdvancedDataApplication("Cubemap", 800, 600));
+	std::unique_ptr<UniformBlockApplication> application(new UniformBlockApplication("Cubemap", 800, 600));
 
 	try
 	{

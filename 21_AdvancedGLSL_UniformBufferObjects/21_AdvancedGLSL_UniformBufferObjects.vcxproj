@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8BD0ABDD-FDA7-429A-A290-0FDA79F165B2}</ProjectGuid>
+    <ProjectGuid>{60373858-867D-47F9-A89F-BDC8AE85C511}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>My20_AdvancedData</RootNamespace>
+    <RootNamespace>My21_AdvancedGLSL_UniformBufferObjects</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -150,15 +150,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AdvancedDataApplication.cpp" />
-    <ClCompile Include="AdvancedDataComponent.cpp" />
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AdvancedDataApplication.h" />
-    <ClInclude Include="AdvancedDataComponent.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="res\back.jpg" />
     <Image Include="res\bottom.jpg" />
     <Image Include="res\diffuseMap.bmp" />
@@ -173,6 +164,15 @@
     <None Include="shaders\container.vert" />
     <None Include="shaders\cubemap.frag" />
     <None Include="shaders\cubemap.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="UniformBlockApplication.cpp" />
+    <ClCompile Include="UniformBlockComponent.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="UniformBlockApplication.h" />
+    <ClInclude Include="UniformBlockComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
